@@ -175,6 +175,8 @@
   color: rgb(37, 109, 224);
 }
 
+
+
 #reset-svg {
   height: 100%;
   color: #f0f0f0;
@@ -184,5 +186,36 @@
   min-height: 400px;
 }
 
-.button-show-results {
+.result-percent-bar-bg {
+  width: 100%;
+  height: 28px;
+  display: grid;
+  place-content: center;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.808);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.result-percent-bar-front {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #36c056;
+  width: 28%;
+  height: 100%;
+}
+
+.bg-rarely {
+  background-color: rgb(224, 46, 37);
+}
+.bg-monthly {
+  background-color: rgb(235, 173, 30);
+}
+.bg-weekly {
+  background-color: rgb(16, 178, 46);
+}
+.bg-daily {
+  background-color: rgb(37, 109, 224);
 }

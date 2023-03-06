@@ -75,7 +75,7 @@ function App() {
         setSwipingDir(freq),
           setTimeout(() => {
             setSwipingDir(null), setDirColor(null);
-          }, 1250);
+          }, 2850);
       },
       onTouchEndOrOnMouseUp: ({ event }) => {
         setSwipingDir(null);
@@ -83,7 +83,7 @@ function App() {
       },
       trackMouse: true,
       delta: 180,
-      swipeDuration: 850,
+      swipeDuration: 2850,
     });
 
     return (
@@ -263,14 +263,21 @@ function App() {
         <motion.div className="results" layout>
           <h2>Résultats</h2>
           <h3>Score Global</h3>
-          <div>{Math.floor((12 / 42) * 100) + '%'}</div>
+          <div className="result-percent-bar-bg">
+            <div className="result-percent-bar-front">
+              {Math.floor((12 / 42) * 100) + '%'}
+            </div>
+          </div>
           <h3>Rarement / Jamais</h3>
           <div
+            className="result-percent-bar-bg"
             onClick={() =>
               !showDetails ? setShowDetails(true) : setShowDetails(false)
             }
           >
-            {Math.floor((12 / 42) * 100) + '%'}
+            <div className="result-percent-bar-front bg-rarely">
+              {Math.floor((12 / 42) * 100) + '%'}
+            </div>
           </div>
           {showDetails &&
             cards.map(
@@ -278,11 +285,14 @@ function App() {
             )}
           <h3>Quelques fois par mois</h3>
           <div
+            className="result-percent-bar-bg"
             onClick={() =>
               !showDetails ? setShowDetails(true) : setShowDetails(false)
             }
           >
-            {Math.floor((12 / 42) * 100) + '%'}
+            <div className="result-percent-bar-front bg-monthly">
+              {Math.floor((12 / 42) * 100) + '%'}
+            </div>
           </div>
           {showDetails &&
             cards.map(
@@ -290,11 +300,14 @@ function App() {
             )}
           <h3>Quelques fois par semaine</h3>
           <div
+            className="result-percent-bar-bg"
             onClick={() =>
               !showDetails ? setShowDetails(true) : setShowDetails(false)
             }
           >
-            {Math.floor((12 / 42) * 100) + '%'}
+            <div className="result-percent-bar-front bg-weekly">
+              {Math.floor((12 / 42) * 100) + '%'}
+            </div>
           </div>
           {showDetails &&
             cards.map(
@@ -302,11 +315,14 @@ function App() {
             )}
           <h3>Tous les jours</h3>
           <div
+            className="result-percent-bar-bg"
             onClick={() =>
               !showDetails ? setShowDetails(true) : setShowDetails(false)
             }
           >
-            {Math.floor((12 / 42) * 100) + '%'}
+            <div className="result-percent-bar-front bg-daily">
+              {Math.floor((12 / 42) * 100) + '%'}
+            </div>
           </div>
           {showDetails &&
             cards.map(
