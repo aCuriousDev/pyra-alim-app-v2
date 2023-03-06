@@ -20,7 +20,8 @@ function App() {
     const remove = () => {
       setTimeout(() => {
         setIsVisible(false);
-      }, 150);
+        console.log(sortedCards);
+      }, 350);
     };
 
     // Swipe gesture recognition
@@ -29,8 +30,8 @@ function App() {
         console.log('User Swiped :', eventData.dir),
           remove(),
           ((card.set_freq = 2), (card.sorted = true)),
-          setSortedCards([...sortedCards, card]),
-          console.log(sortedCards),
+          // setSortedCards([...sortedCards, card]),
+          // console.log(sortedCards),
           console.log(card);
       },
       onSwipedRight: (eventData) => {
@@ -78,8 +79,10 @@ function App() {
           }, 2850);
       },
       onTouchEndOrOnMouseUp: ({ event }) => {
-        setSwipingDir(null);
-        setDirColor(null);
+        setTimeout(() => {
+          setSwipingDir(null);
+          setDirColor(null);
+        }, 450);
       },
       trackMouse: true,
       delta: { up: 180, down: 180, right: 80, left: 80 },
@@ -90,8 +93,10 @@ function App() {
       isVisible && (
         <motion.div
           drag
+          dragTransition={{ bounceStiffness: 5, bounceDamping: 100 }}
           dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-          transition={{ ease: [0.6, 0.05, -0.01, 0.9] }}
+          // transition={{ ease: [0.6, 0.05, -0.01, 0.9] }}
+          dragElastic={0.5}
           whileTap={{ scale: 0.9 }}
           className="card unselectable"
           style={{ background: card.color01 }}
@@ -99,10 +104,10 @@ function App() {
           isVisible={isVisible}
         >
           <div
-            className="direction-display"
+            className="direction-display unselectable"
             style={
               swipingDir && {
-                backgroundColor: dirColor+'B3',
+                backgroundColor: dirColor + 'B3',
                 boxShadow: `0px 0px 12px 6px ${dirColor + 'B3'}`,
               }
             }
@@ -228,74 +233,104 @@ function App() {
       )}
 
       {showResults && (
-        <motion.div className="results" layout="position">
+        <motion.div
+          className="results"
+          layout="position"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
           <h2>Résultats</h2>
-          <h3>Score Global</h3>
-          <div className="result-percent-bar-bg">
-            <div className="result-percent-bar-front">
-              {Math.floor((12 / 42) * 100) + '%'}
+          <div className="result-indiv-wrap">
+            <h3>Score Global</h3>
+            <div className="result-percent-bar-bg">
+              <div className="result-percent-bar-front">
+                <p>{Math.floor((12 / 42) * 100) + '%'}</p>
+              </div>
             </div>
           </div>
-          <h3>Rarement / Jamais</h3>
-          <div
-            className="result-percent-bar-bg"
-            onClick={() =>
-              !showDetails ? setShowDetails(true) : setShowDetails(false)
-            }
-          >
-            <div className="result-percent-bar-front bg-rarely">
-              {Math.floor((12 / 42) * 100) + '%'}
+          <div className="result-indiv-wrap">
+            <h4>Rarement / Jamais</h4>
+            <div
+              className="result-percent-bar-bg"
+              onClick={() =>
+                !showDetails ? setShowDetails(true) : setShowDetails(false)
+              }
+            >
+              <div className="result-percent-bar-front bg-rarely">
+                <p>{Math.floor((12 / 42) * 100) + '%'}</p>
+              </div>
+            </div>
+            {showDetails &&
+              cards.map(
+                (card) =>
+                  card.set_freq === 1 && <p key={card.id}>{card.name}</p>
+              )}
+          </div>
+          <div className="result-indiv-wrap">
+            <h4>Quelques fois par mois</h4>
+            <div
+              className="result-percent-bar-bg"
+              onClick={() =>
+                !showDetails ? setShowDetails(true) : setShowDetails(false)
+              }
+            >
+              <div className="result-percent-bar-front bg-monthly">
+                <p>{Math.floor((12 / 42) * 100) + '%'}</p>
+              </div>
+            </div>
+            {showDetails &&
+              cards.map(
+                (card) =>
+                  card.set_freq === 2 && <p key={card.id}>{card.name}</p>
+              )}
+          </div>
+          <div className="result-indiv-wrap">
+            <h4>Quelques fois par semaine</h4>
+            <div
+              className="result-percent-bar-bg"
+              onClick={() =>
+                !showDetails ? setShowDetails(true) : setShowDetails(false)
+              }
+            >
+              <div className="result-percent-bar-front bg-weekly">
+                <p>{Math.floor((12 / 42) * 100) + '%'}</p>
+              </div>
+            </div>
+            {showDetails &&
+              cards.map(
+                (card) =>
+                  card.set_freq === 3 && <p key={card.id}>{card.name}</p>
+              )}
+          </div>
+          <div className="result-indiv-wrap">
+            <h4>Tous les jours</h4>
+            <div
+              className="result-percent-bar-bg"
+              onClick={() =>
+                !showDetails ? setShowDetails(true) : setShowDetails(false)
+              }
+            >
+              <div className="result-percent-bar-front bg-daily">
+                <p>{Math.floor((12 / 42) * 100) + '%'}</p>
+              </div>
+            </div>
+            <div className="result-alims-container">
+              {showDetails &&
+                cards.map(
+                  (card) =>
+                    card.set_freq === 4 && (
+                      <span className="result-single-alim" key={card.id}>
+                        <img
+                          className="mini-img-results"
+                          src={card.img}
+                          alt=""
+                        />
+                        
+                      </span>
+                    )
+                )}
             </div>
           </div>
-          {showDetails &&
-            cards.map(
-              (card) => card.set_freq === 1 && <p key={card.id}>{card.name}</p>
-            )}
-          <h3>Quelques fois par mois</h3>
-          <div
-            className="result-percent-bar-bg"
-            onClick={() =>
-              !showDetails ? setShowDetails(true) : setShowDetails(false)
-            }
-          >
-            <div className="result-percent-bar-front bg-monthly">
-              {Math.floor((12 / 42) * 100) + '%'}
-            </div>
-          </div>
-          {showDetails &&
-            cards.map(
-              (card) => card.set_freq === 2 && <p key={card.id}>{card.name}</p>
-            )}
-          <h3>Quelques fois par semaine</h3>
-          <div
-            className="result-percent-bar-bg"
-            onClick={() =>
-              !showDetails ? setShowDetails(true) : setShowDetails(false)
-            }
-          >
-            <div className="result-percent-bar-front bg-weekly">
-              {Math.floor((12 / 42) * 100) + '%'}
-            </div>
-          </div>
-          {showDetails &&
-            cards.map(
-              (card) => card.set_freq === 3 && <p key={card.id}>{card.name}</p>
-            )}
-          <h3>Tous les jours</h3>
-          <div
-            className="result-percent-bar-bg"
-            onClick={() =>
-              !showDetails ? setShowDetails(true) : setShowDetails(false)
-            }
-          >
-            <div className="result-percent-bar-front bg-daily">
-              {Math.floor((12 / 42) * 100) + '%'}
-            </div>
-          </div>
-          {showDetails &&
-            cards.map(
-              (card) => card.set_freq === 4 && <p key={card.id}>{card.name}</p>
-            )}
         </motion.div>
       )}
 
