@@ -151,63 +151,14 @@ function App() {
     }
   };
 
-  // // select top card
-  // useEffect(() => {
-  //   if (cards.length !== 0) {
-  //     setTopCard(cards[cards.length - 1]);
-  //   }
-  // }, [sortedCards]);
-
-  // // choose the card clicked on
-  // const handleSort = (card) => {
-  //   setChoiceCard(card);
-  //   console.log(card);
-  // };
-
-  // set last card (actually showing) top property to true
-  // const setTop = () => {
-  //   function filterBySorted(item) {
-  //     if (item.sorted == false) {
-  //       return true;
-  //     }
-  //     return false;
-  //   }
-  // };
-
-  // check if there are cards unsorted and then define a new top card wich is the last element of the array
-  // if (sortedCards.length !== 0) {
-  //   const lastItemIndex = sortedCards.length - 1;
-  //   const topCardID = sortedCards[lastItemIndex].id;
-
-  //   setCards((prevCards) => {
-  //     return prevCards.map((card) => {
-  //       if (card.id === topCardID) {
-  //         return { ...card, top: true };
-  //       }
-  //       return card;
-  //     });
-  //   });
-  // }
-
-  // // sort top card on user input
-  // const sortCard = (freq) => {
-  //   if (cards.length !== 0) {
-  //     topCard.set_freq = freq;
-  //     setSortedCards((sortedCards) => [...sortedCards, topCard]);
-  //   }
-  // };
-
-  // // update Sorted Cards ?
-  // useEffect(() => {
-  //   console.log(cards);
-  //   console.log(sortedCards);
-  // }, [sortedCards]);
 
   return (
     <div className="App">
       <motion.h1
         className={started ? 'title started drop-shadow' : 'title drop-shadow'}
         layout
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
         transition={{ duration: 0.5 }}
       >
         Pyra'Alim
@@ -232,15 +183,27 @@ function App() {
         </motion.button>
       )}
       {!started && (
-        <p className="subtitle">
+        <motion.p
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
+        transition={{ duration: 0.5 }}
+         className="subtitle">
           L'outil simple pour auto-évaluer la qualité de mon alimentation et
           équilibrer ma pyramide alimentaire.
-        </p>
+        </motion.p>
       )}
       {!started && (
-        <button className="button-start" onClick={startTest}>
+        <motion.button
+          className="button-start"
+          onClick={startTest}
+          initial={{ x: '-9000px' }}
+          animate={{ x: 0 }}
+          transition={{duration: 0.35}}
+          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.05 }}
+        >
           Commencer le test
-        </button>
+        </motion.button>
       )}
 
       {started && !showResults && (
@@ -260,7 +223,7 @@ function App() {
       )}
 
       {showResults && (
-        <motion.div className="results" layout>
+        <motion.div className="results" layout="position">
           <h2>Résultats</h2>
           <h3>Score Global</h3>
           <div className="result-percent-bar-bg">
