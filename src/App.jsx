@@ -57,22 +57,22 @@ function App() {
         switch (getDir) {
           case 'Left':
             freq = 'Quelques fois par mois';
-            setDirColor('rgb(235, 173, 30)');
+            setDirColor('#ebad1e');
             break;
           case 'Right':
             freq = 'Tous les jours';
-            setDirColor('rgb(37, 109, 224)');
+            setDirColor('#256de0');
             break;
           case 'Up':
             freq = 'Quelques fois par semaine';
-            setDirColor('rgb(16, 178, 46)');
+            setDirColor('#10b22e');
             break;
           case 'Down':
             freq = 'Rarement / Jamais';
-            setDirColor('rgb(224, 46, 37)');
+            setDirColor('#e02e25');
             break;
         }
-        setSwipingDir(freq),
+        setSwipingDir('Consommation : ' + freq),
           setTimeout(() => {
             setSwipingDir(null), setDirColor(null);
           }, 2850);
@@ -82,7 +82,7 @@ function App() {
         setDirColor(null);
       },
       trackMouse: true,
-      delta: 180,
+      delta: { up: 180, down: 180, right: 80, left: 80 },
       swipeDuration: 2850,
     });
 
@@ -100,9 +100,14 @@ function App() {
         >
           <div
             className="direction-display"
-            style={{ backgroundColor: dirColor }}
+            style={
+              swipingDir && {
+                backgroundColor: dirColor+'B3',
+                boxShadow: `0px 0px 12px 6px ${dirColor + 'B3'}`,
+              }
+            }
           >
-            {swipingDir}
+            <p>{swipingDir}</p>
           </div>
           <div className="front">
             <img
@@ -151,14 +156,13 @@ function App() {
     }
   };
 
-
   return (
     <div className="App">
       <motion.h1
         className={started ? 'title started drop-shadow' : 'title drop-shadow'}
         layout
-        initial={{opacity: 0}}
-        animate={{opacity: 1}}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
         Pyra'Alim
@@ -184,10 +188,11 @@ function App() {
       )}
       {!started && (
         <motion.p
-        initial={{opacity: 0}}
-        animate={{opacity: 1}}
-        transition={{ duration: 0.5 }}
-         className="subtitle">
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="subtitle"
+        >
           L'outil simple pour auto-évaluer la qualité de mon alimentation et
           équilibrer ma pyramide alimentaire.
         </motion.p>
@@ -198,7 +203,7 @@ function App() {
           onClick={startTest}
           initial={{ x: '-9000px' }}
           animate={{ x: 0 }}
-          transition={{duration: 0.35}}
+          transition={{ duration: 0.35 }}
           whileTap={{ scale: 0.9 }}
           whileHover={{ scale: 1.05 }}
         >
