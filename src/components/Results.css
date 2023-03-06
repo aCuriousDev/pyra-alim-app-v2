@@ -1,0 +1,33 @@
+h3 {
+  display: inline-block;
+}
+
+.results-container {
+  display: grid;
+  gap: 2rem;
+}
+
+.explications-container {
+  max-width: 60ch;
+}
+
+.results-display {
+  display: grid;
+  gap: 1rem;
+}
+
+.daily-text-color {
+  color: #8dc0dc;
+}
+
+.weekly-text-color {
+  color: #a1e59c;
+}
+
+.monthly-text-color {
+  color: #f8df58;
+}
+
+.rarely-text-color {
+  color: #e8b6b6;
+}
