@@ -274,6 +274,7 @@ function App() {
                 <p>{Math.floor((12 / 42) * 100) + '%'}</p>
               </div>
             </div>
+            <div className="result-alims-container">
             {showDetails &&
               cards.map(
                 (card) =>
@@ -287,6 +288,7 @@ function App() {
                       </span>
                     )
               )}
+              </div>
           </div>
           <div className="result-indiv-wrap">
             <h4>Quelques fois par mois</h4>
@@ -300,6 +302,7 @@ function App() {
                 <p>{Math.floor((12 / 42) * 100) + '%'}</p>
               </div>
             </div>
+            <div className="result-alims-container">
             {showDetails &&
               cards.map(
                 (card) =>
@@ -313,6 +316,7 @@ function App() {
                       </span>
                     )
               )}
+              </div>
           </div>
           <div className="result-indiv-wrap">
             <h4>Quelques fois par semaine</h4>
@@ -326,6 +330,7 @@ function App() {
                 <p>{Math.floor((12 / 42) * 100) + '%'}</p>
               </div>
             </div>
+            <div className="result-alims-container">
             {showDetails &&
               cards.map(
                 (card) =>
@@ -339,6 +344,7 @@ function App() {
                       </span>
                     )
               )}
+              </div>
           </div>
           <div className="result-indiv-wrap">
             <h4>Tous les jours</h4>
