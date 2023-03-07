@@ -21,7 +21,7 @@ function App() {
     const remove = () => {
       setTimeout(() => {
         setIsVisible(false);
-        console.log(sortedCards);
+        // console.log(sortedCards);
       }, 350);
     };
 
@@ -30,36 +30,32 @@ function App() {
     const handlers = useSwipeable({
       onSwipedLeft: (eventData) => {
         if (eventData.velocity >= escapeVelocity) {
-          console.log('User Swiped :', eventData.dir),
-            remove(),
-            ((card.set_freq = 2), (card.sorted = true)),
-            // setSortedCards([...sortedCards, card]),
-            // console.log(sortedCards),
-            console.log(card);
+          // console.log('User Swiped :', eventData.dir),
+          remove(), ((card.set_freq = 2), (card.sorted = true));
+          // setSortedCards([...sortedCards, card]),
+          // console.log(sortedCards),
+          //console.log(card)
         }
       },
       onSwipedRight: (eventData) => {
         if (eventData.velocity >= escapeVelocity) {
-          console.log('User Swiped :', eventData.dir),
-            remove(),
-            ((card.set_freq = 4), (card.sorted = true)),
-            console.log(card);
+          // console.log('User Swiped :', eventData.dir),
+          remove(), ((card.set_freq = 4), (card.sorted = true));
+          // console.log(card)
         }
       },
       onSwipedUp: (eventData) => {
         if (eventData.velocity >= escapeVelocity) {
-          console.log('User Swiped :', eventData.dir),
-            remove(),
-            ((card.set_freq = 3), (card.sorted = true)),
-            console.log(card);
+          // console.log('User Swiped :', eventData.dir),
+          remove(), ((card.set_freq = 3), (card.sorted = true));
+          // console.log(card)
         }
       },
       onSwipedDown: (eventData) => {
         if (eventData.velocity >= escapeVelocity) {
-          console.log('User Swiped :', eventData.dir),
-            remove(),
-            ((card.set_freq = 1), (card.sorted = true)),
-            console.log(card);
+          // console.log('User Swiped :', eventData.dir),
+          remove(), ((card.set_freq = 1), (card.sorted = true));
+          // console.log(card)
         }
       },
       onSwiping: (eventData) => {
@@ -162,16 +158,16 @@ function App() {
     const cardsLength = cards.length;
     const sortedLength = sortedCards.length;
     if (cardsLength == sortedLength) {
-      console.log('true', cardsLength, sortedLength);
+      // console.log('true', cardsLength, sortedLength);
       return true;
     } else {
-      console.log('false', cardsLength, sortedLength);
+      // console.log('false', cardsLength, sortedLength);
       return false;
     }
   };
 
   return (
-    <div className="App">
+    <div className="App unselectable">
       <motion.h1
         className={started ? 'title started drop-shadow' : 'title drop-shadow'}
         layout
@@ -289,6 +285,7 @@ function App() {
                         key={card.id}
                       >
                         <img
+                          draggable="false"
                           className="mini-img-results"
                           src={card.img}
                           alt=""
@@ -324,6 +321,7 @@ function App() {
                         key={card.id}
                       >
                         <img
+                          draggable="false"
                           className="mini-img-results"
                           src={card.img}
                           alt=""
@@ -359,6 +357,7 @@ function App() {
                         key={card.id}
                       >
                         <img
+                          draggable="false"
                           className="mini-img-results"
                           src={card.img}
                           alt=""
@@ -394,6 +393,7 @@ function App() {
                         key={card.id}
                       >
                         <img
+                          draggable="false"
                           className="mini-img-results"
                           src={card.img}
                           alt=""

@@ -129,7 +129,10 @@
 } */
 
 .card img {
-  height: 7rem;
+  height: auto;
+  width: auto;
+  max-height: 8rem;
+  max-width: 80%;
 }
 
 .direction-display {
@@ -242,8 +245,6 @@
   margin-bottom: 0.2rem;
 }
 
-
-
 .result-percent-bar-bg {
   width: 80%;
   height: 28px;
@@ -277,23 +278,27 @@
 
 .result-alims-container {
   display: flex;
+  overflow-x: auto;
+  scroll-snap-type: inline mandatory;
   gap: 1rem;
+  cursor: grab;
 }
 
 .result-single-alim {
+  scroll-snap-align: start;
   padding: 6px;
   border-radius: 9px;
   display: grid;
 }
 
 .correct {
-  background-color: #1cad69bb ;
-  box-shadow: inset 0px 0px 0px 1px #1cad6a ;
+  background-color: #1cad69bb;
+  box-shadow: inset 0px 0px 0px 1px #1cad6a;
 }
 
 .incorrect {
   background-color: #b45428bb;
-  box-shadow: inset 0px 0px 0px 1px #b45428 ;
+  box-shadow: inset 0px 0px 0px 1px #b45428;
 }
 
 .bg-rarely {
@@ -308,4 +313,3 @@
 .bg-daily {
   background-color: #256de0;
 }
-
