@@ -12,6 +12,7 @@ function App() {
   const [showResults, setShowResults] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
+  // Card Components
   function Card({ card, cards, sortedCards }) {
     const [isVisible, setIsVisible] = useState(true);
     const [swipingDir, setSwipingDir] = useState(null);
@@ -25,32 +26,41 @@ function App() {
     };
 
     // Swipe gesture recognition
+    const escapeVelocity = 0.8;
     const handlers = useSwipeable({
       onSwipedLeft: (eventData) => {
-        console.log('User Swiped :', eventData.dir),
-          remove(),
-          ((card.set_freq = 2), (card.sorted = true)),
-          // setSortedCards([...sortedCards, card]),
-          // console.log(sortedCards),
-          console.log(card);
+        if (eventData.velocity >= escapeVelocity) {
+          console.log('User Swiped :', eventData.dir),
+            remove(),
+            ((card.set_freq = 2), (card.sorted = true)),
+            // setSortedCards([...sortedCards, card]),
+            // console.log(sortedCards),
+            console.log(card);
+        }
       },
       onSwipedRight: (eventData) => {
-        console.log('User Swiped :', eventData.dir),
-          remove(),
-          ((card.set_freq = 4), (card.sorted = true)),
-          console.log(card);
+        if (eventData.velocity >= escapeVelocity) {
+          console.log('User Swiped :', eventData.dir),
+            remove(),
+            ((card.set_freq = 4), (card.sorted = true)),
+            console.log(card);
+        }
       },
       onSwipedUp: (eventData) => {
-        console.log('User Swiped :', eventData.dir),
-          remove(),
-          ((card.set_freq = 3), (card.sorted = true)),
-          console.log(card);
+        if (eventData.velocity >= escapeVelocity) {
+          console.log('User Swiped :', eventData.dir),
+            remove(),
+            ((card.set_freq = 3), (card.sorted = true)),
+            console.log(card);
+        }
       },
       onSwipedDown: (eventData) => {
-        console.log('User Swiped :', eventData.dir),
-          remove(),
-          ((card.set_freq = 1), (card.sorted = true)),
-          console.log(card);
+        if (eventData.velocity >= escapeVelocity) {
+          console.log('User Swiped :', eventData.dir),
+            remove(),
+            ((card.set_freq = 1), (card.sorted = true)),
+            console.log(card);
+        }
       },
       onSwiping: (eventData) => {
         const getDir = eventData.dir;
@@ -73,10 +83,10 @@ function App() {
             setDirColor('#e02e25');
             break;
         }
-        setSwipingDir('Consommation : ' + freq),
-          setTimeout(() => {
-            setSwipingDir(null), setDirColor(null);
-          }, 2850);
+        setSwipingDir('Consommation : ' + freq);
+        // setTimeout(() => {
+        //   setSwipingDir(null), setDirColor(null);
+        // }, 2850);
       },
       onTouchEndOrOnMouseUp: ({ event }) => {
         setTimeout(() => {
@@ -86,16 +96,15 @@ function App() {
       },
       trackMouse: true,
       delta: { up: 180, down: 180, right: 80, left: 80 },
-      swipeDuration: 2850,
     });
 
     return (
       isVisible && (
         <motion.div
           drag
-          dragTransition={{ bounceStiffness: 5, bounceDamping: 100 }}
+          dragTransition={{ bounceStiffness: 99, bounceDamping: 23 }}
           dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-          // transition={{ ease: [0.6, 0.05, -0.01, 0.9] }}
+          // dragSnapToOrigin={true}
           dragElastic={0.5}
           whileTap={{ scale: 0.9 }}
           className="card unselectable"
@@ -174,12 +183,18 @@ function App() {
       </motion.h1>
       {started && (
         <motion.button
-          animate={{ opacity: 1 }}
-          transition={{ ease: 'easeIn', duration: 1.6 }}
+          animate={{
+            opacity: 1,
+            transition: { ease: 'easeIn', duration: 1.6 },
+          }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.85 }}
           className="button-reset"
           onClick={resetTest}
         >
-          <svg
+          <motion.svg
+            whileHover={{ rotate: 360 }}
+            whileTap={{ rotate: 180 }}
             id="reset-svg"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
@@ -188,14 +203,14 @@ function App() {
               fill="currentColor"
               d="M126.9 142.9c62.2-62.2 162.7-62.5 225.3-1L311 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H447.5c0 0 0 0 0 0H456c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L397.4 96.6c-87.6-86.5-228.7-86.2-315.8 1C57.2 122 39.6 150.7 28.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5c7.7-21.8 20.2-42.3 37.8-59.8zM0 312v7.6 .7V440c0 9.7 5.8 18.5 14.8 22.2s19.3 1.7 26.2-5.2l41.6-41.6c87.6 86.5 228.7 86.2 315.8-1c24.4-24.4 42.1-53.1 52.9-83.7c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.2 62.2-162.7 62.5-225.3 1L169 329c6.9-6.9 8.9-17.2 5.2-26.2s-12.5-14.8-22.2-14.8H32.4h-.7H24c-13.3 0-24 10.7-24 24z"
             />
-          </svg>
+          </motion.svg>
         </motion.button>
       )}
       {!started && (
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.8 }}
           className="subtitle"
         >
           L'outil simple pour auto-évaluer la qualité de mon alimentation et
@@ -206,10 +221,9 @@ function App() {
         <motion.button
           className="button-start"
           onClick={startTest}
-          initial={{ x: '-9000px' }}
+          initial={{ x: '-100vw' }}
           animate={{ x: 0 }}
-          transition={{ duration: 0.35 }}
-          whileTap={{ scale: 0.9 }}
+          whileTap={{ scale: 0.85 }}
           whileHover={{ scale: 1.05 }}
         >
           Commencer le test
@@ -263,7 +277,15 @@ function App() {
             {showDetails &&
               cards.map(
                 (card) =>
-                  card.set_freq === 1 && <p key={card.id}>{card.name}</p>
+                  card.set_freq === 1 && (
+                      <span className="result-single-alim" key={card.id}>
+                        <img
+                          className="mini-img-results"
+                          src={card.img}
+                          alt=""
+                        />
+                      </span>
+                    )
               )}
           </div>
           <div className="result-indiv-wrap">
@@ -281,7 +303,15 @@ function App() {
             {showDetails &&
               cards.map(
                 (card) =>
-                  card.set_freq === 2 && <p key={card.id}>{card.name}</p>
+                  card.set_freq === 2 && (
+                      <span className="result-single-alim" key={card.id}>
+                        <img
+                          className="mini-img-results"
+                          src={card.img}
+                          alt=""
+                        />
+                      </span>
+                    )
               )}
           </div>
           <div className="result-indiv-wrap">
@@ -299,7 +329,15 @@ function App() {
             {showDetails &&
               cards.map(
                 (card) =>
-                  card.set_freq === 3 && <p key={card.id}>{card.name}</p>
+                  card.set_freq === 3 && (
+                      <span className="result-single-alim" key={card.id}>
+                        <img
+                          className="mini-img-results"
+                          src={card.img}
+                          alt=""
+                        />
+                      </span>
+                    )
               )}
           </div>
           <div className="result-indiv-wrap">
@@ -325,7 +363,6 @@ function App() {
                           src={card.img}
                           alt=""
                         />
-                        
                       </span>
                     )
                 )}
@@ -336,7 +373,7 @@ function App() {
 
       {started && (
         <button
-          className="button-show-results button-start"
+          className={!showResults ? "button-show-results" : "button-show-results showing"}
           onClick={() =>
             !showResults ? setShowResults(true) : setShowResults(false)
           }
@@ -345,21 +382,6 @@ function App() {
           {!showResults ? 'Voir les résultats' : 'Masquer les résultats'}
         </button>
       )}
-
-      {/* {started && (
-        <div className="btn-rate-container">
-          <button className="btn-daily">
-            <span>tous les</span> jours
-          </button>
-          <button className="btn-weekly">
-            <span>quelques fois par</span> semaine
-          </button>
-          <button className="btn-monthly">
-            <span>quelques fois par</span> mois
-          </button>
-          <button className="btn-rarely">rarement / jamais</button>
-        </div>
-      )} */}
     </div>
   );
 }
