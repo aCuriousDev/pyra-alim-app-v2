@@ -254,11 +254,12 @@ function App() {
           animate={{ opacity: 1 }}
         >
           <h2>Résultats</h2>
+          <p>Cliquez sur les catégories pour voir plus de détails.</p>
           <div className="result-indiv-wrap">
             <h3>Score Global</h3>
             <div className="result-percent-bar-bg">
               <div className="result-percent-bar-front">
-                <p>{Math.floor((12 / 42) * 100) + '%'}</p>
+                <p>{Math.floor((1 / cards.length) * 100) + '%'}</p>
               </div>
             </div>
           </div>
@@ -271,15 +272,22 @@ function App() {
               }
             >
               <div className="result-percent-bar-front bg-rarely">
-                <p>{Math.floor((12 / 42) * 100) + '%'}</p>
+                <p>{Math.floor((1 / cards.length) * 100) + '%'}</p>
               </div>
             </div>
             <div className="result-alims-container">
-            {showDetails &&
-              cards.map(
-                (card) =>
-                  card.set_freq === 1 && (
-                      <span className="result-single-alim" key={card.id}>
+              {showDetails &&
+                cards.map(
+                  (card) =>
+                    card.set_freq === 1 && (
+                      <span
+                        className={
+                          card.set_freq !== card.ref_freq
+                            ? 'result-single-alim incorrect'
+                            : 'result-single-alim correct'
+                        }
+                        key={card.id}
+                      >
                         <img
                           className="mini-img-results"
                           src={card.img}
@@ -287,8 +295,8 @@ function App() {
                         />
                       </span>
                     )
-              )}
-              </div>
+                )}
+            </div>
           </div>
           <div className="result-indiv-wrap">
             <h4>Quelques fois par mois</h4>
@@ -299,15 +307,22 @@ function App() {
               }
             >
               <div className="result-percent-bar-front bg-monthly">
-                <p>{Math.floor((12 / 42) * 100) + '%'}</p>
+                <p>{Math.floor((1 / cards.length) * 100) + '%'}</p>
               </div>
             </div>
             <div className="result-alims-container">
-            {showDetails &&
-              cards.map(
-                (card) =>
-                  card.set_freq === 2 && (
-                      <span className="result-single-alim" key={card.id}>
+              {showDetails &&
+                cards.map(
+                  (card) =>
+                    card.set_freq === 2 && (
+                      <span
+                        className={
+                          card.set_freq !== card.ref_freq
+                            ? 'result-single-alim incorrect'
+                            : 'result-single-alim correct'
+                        }
+                        key={card.id}
+                      >
                         <img
                           className="mini-img-results"
                           src={card.img}
@@ -315,8 +330,8 @@ function App() {
                         />
                       </span>
                     )
-              )}
-              </div>
+                )}
+            </div>
           </div>
           <div className="result-indiv-wrap">
             <h4>Quelques fois par semaine</h4>
@@ -327,15 +342,22 @@ function App() {
               }
             >
               <div className="result-percent-bar-front bg-weekly">
-                <p>{Math.floor((12 / 42) * 100) + '%'}</p>
+                <p>{Math.floor((1 / cards.length) * 100) + '%'}</p>
               </div>
             </div>
             <div className="result-alims-container">
-            {showDetails &&
-              cards.map(
-                (card) =>
-                  card.set_freq === 3 && (
-                      <span className="result-single-alim" key={card.id}>
+              {showDetails &&
+                cards.map(
+                  (card) =>
+                    card.set_freq === 3 && (
+                      <span
+                        className={
+                          card.set_freq !== card.ref_freq
+                            ? 'result-single-alim incorrect'
+                            : 'result-single-alim correct'
+                        }
+                        key={card.id}
+                      >
                         <img
                           className="mini-img-results"
                           src={card.img}
@@ -343,8 +365,8 @@ function App() {
                         />
                       </span>
                     )
-              )}
-              </div>
+                )}
+            </div>
           </div>
           <div className="result-indiv-wrap">
             <h4>Tous les jours</h4>
@@ -355,7 +377,7 @@ function App() {
               }
             >
               <div className="result-percent-bar-front bg-daily">
-                <p>{Math.floor((12 / 42) * 100) + '%'}</p>
+                <p>{Math.floor((1 / cards.length) * 100) + '%'}</p>
               </div>
             </div>
             <div className="result-alims-container">
@@ -363,7 +385,14 @@ function App() {
                 cards.map(
                   (card) =>
                     card.set_freq === 4 && (
-                      <span className="result-single-alim" key={card.id}>
+                      <span
+                        className={
+                          card.set_freq !== card.ref_freq
+                            ? 'result-single-alim incorrect'
+                            : 'result-single-alim correct'
+                        }
+                        key={card.id}
+                      >
                         <img
                           className="mini-img-results"
                           src={card.img}
@@ -379,7 +408,9 @@ function App() {
 
       {started && (
         <button
-          className={!showResults ? "button-show-results" : "button-show-results showing"}
+          className={
+            !showResults ? 'button-show-results' : 'button-show-results showing'
+          }
           onClick={() =>
             !showResults ? setShowResults(true) : setShowResults(false)
           }

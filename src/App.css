@@ -26,7 +26,6 @@
   text-align: center;
   max-width: 32ch;
   margin-bottom: 2rem;
-
 }
 
 .button-start {
@@ -188,8 +187,6 @@
   margin-top: 2rem;
 }
 
-
-
 .btn-rate-container .btn-rarely {
   color: #e02e25;
 }
@@ -229,6 +226,10 @@
   font-size: 2.5rem;
 }
 
+.results > p {
+  text-align: center;
+}
+
 .results h3 {
   font-size: 1.45rem;
 }
@@ -241,10 +242,7 @@
   margin-bottom: 0.2rem;
 }
 
-.mini-img-results {
-  height: 20px;
-  width: auto;
-}
+
 
 .result-percent-bar-bg {
   width: 80%;
@@ -271,9 +269,31 @@
   border-radius: 0px 99vh 99vh 0px;
 }
 
+.mini-img-results {
+  height: 24px;
+  width: auto;
+  place-self: center;
+}
+
 .result-alims-container {
   display: flex;
   gap: 1rem;
+}
+
+.result-single-alim {
+  padding: 6px;
+  border-radius: 9px;
+  display: grid;
+}
+
+.correct {
+  background-color: #1cad69bb ;
+  box-shadow: inset 0px 0px 0px 1px #1cad6a ;
+}
+
+.incorrect {
+  background-color: #b45428bb;
+  box-shadow: inset 0px 0px 0px 1px #b45428 ;
 }
 
 .bg-rarely {
@@ -288,3 +308,4 @@
 .bg-daily {
   background-color: #256de0;
 }
+
