@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
-import { motion } from 'framer-motion';
+import { easeIn, motion } from 'framer-motion';
 import './App.css';
 import aliments from './data.js';
 
@@ -253,10 +253,10 @@ function App() {
           <p>Cliquez sur les catégories pour voir plus de détails.</p>
           <div className="result-indiv-wrap">
             <h3>Score Global</h3>
-            <div className="result-percent-bar-bg">
-              <div className="result-percent-bar-front">
+            <div className="result-percent-bar-bg global-score">
+              <motion.div initial={{x:-120}} animate={{x:0}} transition={{type:easeIn, duration:.65}} className="result-percent-bar-front ">
                 <p>{Math.floor((1 / cards.length) * 100) + '%'}</p>
-              </div>
+              </motion.div>
             </div>
           </div>
           <div className="result-indiv-wrap">
@@ -267,13 +267,13 @@ function App() {
                 !showDetails ? setShowDetails(true) : setShowDetails(false)
               }
             >
-              <div className="result-percent-bar-front bg-rarely">
+              <motion.div initial={{x:-120}} animate={{x:0}} transition={{type:easeIn, duration:.65, delay:.15}} className="result-percent-bar-front bg-rarely">
                 <p>{Math.floor((1 / cards.length) * 100) + '%'}</p>
-              </div>
+              </motion.div>
             </div>
             <div className="result-alims-container">
               {showDetails &&
-                cards.map(
+                cards.sort((a, b) => a.ref_freq - b.ref_freq).map(
                   (card) =>
                     card.set_freq === 1 && (
                       <span
@@ -303,13 +303,13 @@ function App() {
                 !showDetails ? setShowDetails(true) : setShowDetails(false)
               }
             >
-              <div className="result-percent-bar-front bg-monthly">
+              <motion.div initial={{x:-120}} animate={{x:0}} transition={{type:easeIn, duration:.65, delay:.25}} className="result-percent-bar-front bg-monthly">
                 <p>{Math.floor((1 / cards.length) * 100) + '%'}</p>
-              </div>
+              </motion.div>
             </div>
             <div className="result-alims-container">
               {showDetails &&
-                cards.map(
+                cards.sort((a, b) => a.ref_freq - b.ref_freq).map(
                   (card) =>
                     card.set_freq === 2 && (
                       <span
@@ -339,13 +339,13 @@ function App() {
                 !showDetails ? setShowDetails(true) : setShowDetails(false)
               }
             >
-              <div className="result-percent-bar-front bg-weekly">
+              <motion.div initial={{x:-120}} animate={{x:0}} transition={{type:easeIn, duration:.65, delay:.35}} className="result-percent-bar-front bg-weekly">
                 <p>{Math.floor((1 / cards.length) * 100) + '%'}</p>
-              </div>
+              </motion.div>
             </div>
             <div className="result-alims-container">
               {showDetails &&
-                cards.map(
+                cards.sort((a, b) => a.ref_freq - b.ref_freq).map(
                   (card) =>
                     card.set_freq === 3 && (
                       <span
@@ -375,32 +375,34 @@ function App() {
                 !showDetails ? setShowDetails(true) : setShowDetails(false)
               }
             >
-              <div className="result-percent-bar-front bg-daily">
+              <motion.div initial={{x:-120}} animate={{x:0}} transition={{type:easeIn, duration:.65, delay:.45}} className="result-percent-bar-front bg-daily">
                 <p>{Math.floor((1 / cards.length) * 100) + '%'}</p>
-              </div>
+              </motion.div>
             </div>
             <div className="result-alims-container">
               {showDetails &&
-                cards.map(
-                  (card) =>
-                    card.set_freq === 4 && (
-                      <span
-                        className={
-                          card.set_freq !== card.ref_freq
-                            ? 'result-single-alim incorrect'
-                            : 'result-single-alim correct'
-                        }
-                        key={card.id}
-                      >
-                        <img
-                          draggable="false"
-                          className="mini-img-results"
-                          src={card.img}
-                          alt=""
-                        />
-                      </span>
-                    )
-                )}
+                cards
+                  .sort((a, b) => a.ref_freq - b.ref_freq)
+                  .map(
+                    (card) =>
+                      card.set_freq === 4 && (
+                        <span
+                          className={
+                            card.set_freq !== card.ref_freq
+                              ? 'result-single-alim incorrect'
+                              : 'result-single-alim correct'
+                          }
+                          key={card.id}
+                        >
+                          <img
+                            draggable="false"
+                            className="mini-img-results"
+                            src={card.img}
+                            alt=""
+                          />
+                        </span>
+                      )
+                  )}
             </div>
           </div>
         </motion.div>

@@ -3,7 +3,7 @@ const aliments = [
   {
     id: 1,
     name: 'Pain blanc',
-    ref_freq: 1,
+    ref_freq: 2,
     img: './img/Picto1.png',
     color01: '#7C5434',
     color02: '#DA9C4A',
@@ -19,7 +19,7 @@ const aliments = [
   {
     id: 3,
     name: 'Produits laitiers de vache (lait, yaourt, fromage)',
-    ref_freq: 1,
+    ref_freq: 3,
     img: './img/Picto3.png',
     color01: '#2434A4',
     color02: '#FFFFFF',
@@ -59,7 +59,7 @@ const aliments = [
   {
     id: 8,
     name: 'Beurre',
-    ref_freq: 1,
+    ref_freq: 2,
     img: './img/Picto8.png',
     color01: '#F4CC34',
     color02: '#fff2bc',
@@ -75,7 +75,7 @@ const aliments = [
   {
     id: 10,
     name: 'Vin rouge (1 verre de 12cL)',
-    ref_freq: 1,
+    ref_freq: 3,
     img: './img/Picto10.png',
     color01: '#930715',
     color02: '#b54f3b',
@@ -99,7 +99,7 @@ const aliments = [
   {
     id: 13,
     name: 'Fruits',
-    ref_freq: 1,
+    ref_freq: 4,
     img: './img/Picto13.png',
     color01: '#C16330',
     color02: '#e0aa6b',
@@ -115,7 +115,7 @@ const aliments = [
   {
     id: 15,
     name: 'Oeuf',
-    ref_freq: 1,
+    ref_freq: 3,
     img: './img/Picto15.png',
     color01: '#C16330',
     color02: '#e0aa6b',
@@ -123,7 +123,7 @@ const aliments = [
   {
     id: 16,
     name: 'Champignon',
-    ref_freq: 1,
+    ref_freq: 3,
     img: './img/Picto16.png',
     color01: '#C16330',
     color02: '#e0aa6b',
@@ -131,7 +131,7 @@ const aliments = [
   {
     id: 17,
     name: 'Riz',
-    ref_freq: 1,
+    ref_freq: 3,
     img: './img/Picto17.png',
     color01: '#C16330',
     color02: '#e0aa6b',
@@ -139,7 +139,7 @@ const aliments = [
   {
     id: 18,
     name: 'Pâtes',
-    ref_freq: 1,
+    ref_freq: 2,
     img: './img/Picto18.png',
     color01: '#C16330',
     color02: '#e0aa6b',
@@ -147,7 +147,7 @@ const aliments = [
   {
     id: 19,
     name: 'Chocolat Noir',
-    ref_freq: 1,
+    ref_freq: 3,
     img: './img/Picto19.png',
     color01: '#C16330',
     color02: '#e0aa6b',
@@ -155,7 +155,7 @@ const aliments = [
   {
     id: 20,
     name: 'Patate douce et Pomme de terre',
-    ref_freq: 1,
+    ref_freq: 3,
     img: './img/Picto20.png',
     color01: '#C16330',
     color02: '#e0aa6b',
@@ -163,7 +163,7 @@ const aliments = [
   {
     id: 21,
     name: 'Eau',
-    ref_freq: 1,
+    ref_freq: 4,
     img: './img/Picto21.png',
     color01: '#C16330',
     color02: '#e0aa6b',
@@ -171,7 +171,7 @@ const aliments = [
   {
     id: 22,
     name: 'Café',
-    ref_freq: 1,
+    ref_freq: 4,
     img: './img/Picto22.png',
     color01: '#C16330',
     color02: '#e0aa6b',
@@ -179,7 +179,7 @@ const aliments = [
   {
     id: 23,
     name: 'Thé et Infusion',
-    ref_freq: 1,
+    ref_freq: 4,
     img: './img/Picto23.png',
     color01: '#C16330',
     color02: '#e0aa6b',
@@ -187,7 +187,7 @@ const aliments = [
   {
     id: 24,
     name: 'Ail et Oignon',
-    ref_freq: 1,
+    ref_freq: 4,
     img: './img/Picto24.png',
     color01: '#C16330',
     color02: '#e0aa6b',
@@ -195,7 +195,7 @@ const aliments = [
   {
     id: 25,
     name: 'Huile végétale de première pression à froid (olive, noix, colza, lin)',
-    ref_freq: 1,
+    ref_freq: 4,
     img: './img/Picto25.png',
     color01: '#C16330',
     color02: '#e0aa6b',
@@ -203,7 +203,7 @@ const aliments = [
   {
     id: 26,
     name: 'Epices',
-    ref_freq: 1,
+    ref_freq: 4,
     img: './img/Picto26.png',
     color01: '#C16330',
     color02: '#e0aa6b',
@@ -211,7 +211,7 @@ const aliments = [
   {
     id: 27,
     name: 'Herbes aromatiques',
-    ref_freq: 1,
+    ref_freq: 4,
     img: './img/Picto27.png',
     color01: '#C16330',
     color02: '#e0aa6b',
@@ -219,7 +219,7 @@ const aliments = [
   {
     id: 28,
     name: 'Fruits à coques et oléagineux',
-    ref_freq: 1,
+    ref_freq: 4,
     img: './img/Picto28.png',
     color01: '#C16330',
     color02: '#e0aa6b',
@@ -243,7 +243,7 @@ const aliments = [
   {
     id: 31,
     name: 'Viande blanche (Volaille)',
-    ref_freq: 1,
+    ref_freq: 3,
     img: './img/Picto31.png',
     color01: '#E17922',
     color02: '#FBF2D2',
@@ -251,7 +251,7 @@ const aliments = [
   {
     id: 32,
     name: 'Poissons gras (sardine, maquereau, harengs, truite, saumon, etc)',
-    ref_freq: 1,
+    ref_freq: 3,
     img: './img/Picto32.png',
     color01: '#D03E1E',
     color02: '#EFD7B8',
@@ -275,7 +275,7 @@ const aliments = [
   {
     id: 35,
     name: 'Charcuterie',
-    ref_freq: 1,
+    ref_freq: 2,
     img: './img/Picto35.png',
     color01: '#782424',
     color02: '#CD8080',
@@ -283,7 +283,7 @@ const aliments = [
   {
     id: 36,
     name: 'Pain rustique (variété ancienne et au levain)',
-    ref_freq: 1,
+    ref_freq: 3,
     img: './img/Picto36.png',
     color01: '#432B1C',
     color02: '#90501C',
@@ -291,7 +291,7 @@ const aliments = [
   {
     id: 37,
     name: 'Céréales du petit déjeuné, pain de mie, biscotte',
-    ref_freq: 1,
+    ref_freq: 2,
     img: './img/Picto37.png',
     color01: '#D0832D',
     color02: '#CCA876',
@@ -307,7 +307,7 @@ const aliments = [
   {
     id: 39,
     name: 'Fruits secs',
-    ref_freq: 1,
+    ref_freq: 3,
     img: './img/Picto39.png',
     color01: '#A76D47',
     color02: '#E4CCA1',
@@ -323,7 +323,7 @@ const aliments = [
   {
     id: 41,
     name: 'Poissons maigres (colin, cabillaud, merlan, lieu, sol, raie, lotte)',
-    ref_freq: 1,
+    ref_freq: 3,
     img: './img/Picto41.png',
     color01: '#0C7E45',
     color02: '#C1AB7C',
@@ -339,7 +339,7 @@ const aliments = [
   {
     id: 43,
     name: 'Fruits de mer, mollusques',
-    ref_freq: 1,
+    ref_freq: 3,
     img: './img/Picto43.png',
     color01: '#0C7E45',
     color02: '#C1AB7C',
@@ -347,7 +347,7 @@ const aliments = [
   {
     id: 44,
     name: 'Légumes secs (pois chiche, lentilles, haricots blans)',
-    ref_freq: 1,
+    ref_freq: 4,
     img: './img/Picto44.png',
     color01: '#0C7E45',
     color02: '#C1AB7C',
@@ -355,7 +355,7 @@ const aliments = [
   {
     id: 45,
     name: 'Légumes frais',
-    ref_freq: 1,
+    ref_freq: 4,
     img: './img/Picto45.png',
     color01: '#0C7E45',
     color02: '#C1AB7C',

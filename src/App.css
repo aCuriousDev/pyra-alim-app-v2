@@ -188,6 +188,8 @@
   box-sizing: border-box;
   color: #fff;
   margin-top: 2rem;
+  place-self: center;
+  width: clamp(180px, 70%, 280px);
 }
 
 .btn-rate-container .btn-rarely {
@@ -213,16 +215,16 @@
   min-height: 400px;
   display: grid;
   align-items: center;
+  place-self: end;
   gap: 1rem;
-  max-width: 400px;
-  width: 280px;
-  min-width: min-content;
+  width: clamp(300px, 60vw, 450px);
 }
 
 .result-indiv-wrap {
   display: grid;
   gap: 0.2rem;
 }
+
 
 .results > h2 {
   place-self: center;
@@ -246,7 +248,7 @@
 }
 
 .result-percent-bar-bg {
-  width: 80%;
+  width: 192px;
   height: 28px;
   display: grid;
   place-content: center;
@@ -256,6 +258,11 @@
     inset 0px 0px 15px 1px rgb(0, 0, 0), inset 0 0 0 1px rgb(100, 100, 100);
   border-radius: 999vh;
   overflow: hidden;
+}
+
+.result-percent-bar-bg.global-score{
+  width: 222px;
+  height: 42px;
 }
 
 .result-percent-bar-front {
