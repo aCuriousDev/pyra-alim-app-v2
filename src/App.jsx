@@ -26,7 +26,7 @@ function App() {
     };
 
     // Swipe gesture recognition
-    const escapeVelocity = 0.8;
+    const escapeVelocity = 0.5;
     const handlers = useSwipeable({
       onSwipedLeft: (eventData) => {
         if (eventData.velocity >= escapeVelocity) {
