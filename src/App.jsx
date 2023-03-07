@@ -22,11 +22,11 @@ function App() {
       setTimeout(() => {
         setIsVisible(false);
         // console.log(sortedCards);
-      }, 350);
+      }, 100);
     };
 
     // Swipe gesture recognition
-    const escapeVelocity = 0.5;
+    const escapeVelocity = 0.15;
     const handlers = useSwipeable({
       onSwipedLeft: (eventData) => {
         if (eventData.velocity >= escapeVelocity) {
@@ -88,7 +88,7 @@ function App() {
         setTimeout(() => {
           setSwipingDir(null);
           setDirColor(null);
-        }, 450);
+        }, 150);
       },
       trackMouse: true,
       delta: { up: 180, down: 180, right: 80, left: 80 },
@@ -265,12 +265,18 @@ function App() {
             </div>
           </div>
           <div className="result-indiv-wrap">
-            <h4>Rarement / Jamais</h4>
-            <div
-              className="result-percent-bar-bg"
+            <h4
               onClick={() =>
                 !showDetails ? setShowDetails(true) : setShowDetails(false)
               }
+            >
+              Rarement / Jamais
+            </h4>
+            <div
+              onClick={() =>
+                !showDetails ? setShowDetails(true) : setShowDetails(false)
+              }
+              className="result-percent-bar-bg"
             >
               <motion.div
                 initial={{ x: -120 }}
@@ -314,12 +320,18 @@ function App() {
             </div>
           </div>
           <div className="result-indiv-wrap">
-            <h4>Quelques fois par mois</h4>
-            <div
-              className="result-percent-bar-bg"
+            <h4
               onClick={() =>
                 !showDetails ? setShowDetails(true) : setShowDetails(false)
               }
+            >
+              Quelques fois par mois
+            </h4>
+            <div
+              onClick={() =>
+                !showDetails ? setShowDetails(true) : setShowDetails(false)
+              }
+              className="result-percent-bar-bg"
             >
               <motion.div
                 initial={{ x: -120 }}
@@ -359,7 +371,13 @@ function App() {
             </div>
           </div>
           <div className="result-indiv-wrap">
-            <h4>Quelques fois par semaine</h4>
+            <h4
+              onClick={() =>
+                !showDetails ? setShowDetails(true) : setShowDetails(false)
+              }
+            >
+              Quelques fois par semaine
+            </h4>
             <div
               className="result-percent-bar-bg"
               onClick={() =>
@@ -404,7 +422,13 @@ function App() {
             </div>
           </div>
           <div className="result-indiv-wrap">
-            <h4>Tous les jours</h4>
+            <h4
+              onClick={() =>
+                !showDetails ? setShowDetails(true) : setShowDetails(false)
+              }
+            >
+              Tous les jours
+            </h4>
             <div
               className="result-percent-bar-bg"
               onClick={() =>
