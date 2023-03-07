@@ -2,7 +2,7 @@
   background: rgb(2, 1, 24);
   background: linear-gradient(90deg, rgba(2, 1, 24, 1) 0%, rgb(7, 7, 27) 100%);
   min-height: 100vh;
-  min-height: 100svh;
+  min-height: 100dvh;
   display: grid;
   place-content: center;
   overflow: hidden;
@@ -225,7 +225,6 @@
   gap: 0.2rem;
 }
 
-
 .results > h2 {
   place-self: center;
   font-size: 2.5rem;
@@ -260,7 +259,7 @@
   overflow: hidden;
 }
 
-.result-percent-bar-bg.global-score{
+.result-percent-bar-bg.global-score {
   width: 222px;
   height: 42px;
 }
