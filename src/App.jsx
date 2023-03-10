@@ -26,7 +26,7 @@ function App() {
         setIndex((prevIndex) => prevIndex + 1);
         console.log('cards length: ' + cards.length);
         console.log(index);
-      }, 100);
+      }, 80);
     };
 
     // Swipe gesture recognition
@@ -102,7 +102,12 @@ function App() {
       isVisible && (
         <motion.div
           drag
-          dragTransition={{ bounceStiffness: 99, bounceDamping: 23 }}
+          dragTransition={{
+            bounceStiffness: 99,
+            bounceDamping: 23,
+            timeConstant: 500,
+            power: 0.1,
+          }}
           dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
           dragElastic={0.5}
           whileTap={{ scale: 0.9 }}
@@ -246,24 +251,20 @@ function App() {
             </div>
           </div>
           <div className="cards-container">
-            <AnimatePresence>
-              {cards
-                .slice(0, index)
-                .reverse()
-                .map(
-                  (card) =>
-                    card.set_freq === 0 && (
-                      <Card
-                        key={card.id}
-                        card={card}
-                        cards={cards}
-                        sortedCards={sortedCards}
-                        exit={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                      />
-                    )
-                )}
-            </AnimatePresence>
+            {cards
+              .slice(0, index)
+              .reverse()
+              .map(
+                (card) =>
+                  card.set_freq === 0 && (
+                    <Card
+                      key={card.id}
+                      card={card}
+                      cards={cards}
+                      sortedCards={sortedCards}
+                    />
+                  )
+              )}
           </div>
         </>
       )}
@@ -286,18 +287,11 @@ function App() {
                 transition={{ type: easeIn, duration: 0.65 }}
                 className="result-percent-bar-front "
               >
-                <p>{Math.floor((1 / cards.length) * 100) + '%'}</p>
+                <p>{Math.floor((12 / cards.length) * 100) + '%'}</p>
               </motion.div>
             </div>
           </div>
           <div className="result-indiv-wrap">
-            <h4
-              onClick={() =>
-                !showDetails ? setShowDetails(true) : setShowDetails(false)
-              }
-            >
-              Rarement / Jamais
-            </h4>
             <div
               onClick={() =>
                 !showDetails ? setShowDetails(true) : setShowDetails(false)
@@ -310,6 +304,7 @@ function App() {
                 transition={{ type: easeIn, duration: 0.65, delay: 0.15 }}
                 className="result-percent-bar-front bg-rarely"
               >
+                <h4>Rarement / Jamais</h4>
                 <p>{Math.floor((1 / cards.length) * 100) + '%'}</p>
               </motion.div>
             </div>

@@ -209,6 +209,7 @@
 
 .button-show-results {
   appearance: button;
+  z-index: 1;
   backface-visibility: hidden;
   background-color: #36c056;
   border-radius: 6px;
@@ -251,7 +252,9 @@
 }
 
 .result-indiv-wrap {
+  place-self: center;
   display: grid;
+  place-items: center;
   gap: 0.2rem;
 }
 
@@ -297,6 +300,7 @@
 .result-percent-bar-front {
   position: absolute;
   display: flex;
+  flex-direction: column;
   align-self: center;
   align-items: center;
   justify-content: center;
