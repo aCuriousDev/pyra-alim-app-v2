@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
-import { easeIn, motion } from 'framer-motion';
+import { easeIn, motion, AnimatePresence } from 'framer-motion';
 import './App.css';
 import aliments from './data.js';
 
@@ -8,6 +8,8 @@ function App() {
   const [cards, setCards] = useState([]);
   const [started, setStarted] = useState(false);
   const [topCard, setTopCard] = useState([]);
+  const [index, setIndex] = useState(2);
+  const [cardsToRender, setCardsToRender] = useState([]);
   const [sortedCards, setSortedCards] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
@@ -21,7 +23,9 @@ function App() {
     const remove = () => {
       setTimeout(() => {
         setIsVisible(false);
-        // console.log(sortedCards);
+        setIndex((prevIndex) => prevIndex + 1);
+        console.log('cards length: ' + cards.length);
+        console.log(index);
       }, 100);
     };
 
@@ -100,11 +104,14 @@ function App() {
           drag
           dragTransition={{ bounceStiffness: 99, bounceDamping: 23 }}
           dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-          // dragSnapToOrigin={true}
           dragElastic={0.5}
           whileTap={{ scale: 0.9 }}
           className="card unselectable"
-          style={{ background: card.color01 }}
+          style={{
+            backgroundColor: card.color01,
+            backgroundImage: `linear-gradient(to top right, ${card.color02}, ${card.color01})`,
+            backgroundBlendMode: 'soft-light',
+          }}
           {...handlers}
           isVisible={isVisible}
         >
@@ -152,6 +159,7 @@ function App() {
     setSortedCards([]);
     setShowDetails(false);
     setShowResults(false);
+    setIndex(2);
   };
 
   const compareCardsAndSorted = () => {
@@ -227,19 +235,37 @@ function App() {
       )}
 
       {started && !showResults && (
-        <div className="cards-container">
-          {cards.map(
-            (card) =>
-              card.set_freq === 0 && (
-                <Card
-                  key={card.id}
-                  card={card}
-                  cards={cards}
-                  sortedCards={sortedCards}
-                />
-              )
-          )}
-        </div>
+        <>
+          <div className="progression-container">
+            <div
+              className="progression-bar"
+              style={{ width: `${(index / 45) * 100}%` }}
+            ></div>
+            <div className="progress-number">
+              {index - 2} / {cards.length}
+            </div>
+          </div>
+          <div className="cards-container">
+            <AnimatePresence>
+              {cards
+                .slice(0, index)
+                .reverse()
+                .map(
+                  (card) =>
+                    card.set_freq === 0 && (
+                      <Card
+                        key={card.id}
+                        card={card}
+                        cards={cards}
+                        sortedCards={sortedCards}
+                        exit={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                      />
+                    )
+                )}
+            </AnimatePresence>
+          </div>
+        </>
       )}
 
       {showResults && (
