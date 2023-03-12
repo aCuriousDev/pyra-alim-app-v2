@@ -11,7 +11,7 @@ const aliments = [
   {
     id: 2,
     name: 'Viande Rouge',
-    ref_freq: 1,
+    ref_freq: 2,
     img: './img/Picto2.png',
     color01: '#CA433C',
     color02: '#EFC2AE',
@@ -19,7 +19,7 @@ const aliments = [
   {
     id: 3,
     name: 'Produits laitiers de vache (lait, yaourt, fromage)',
-    ref_freq: 3,
+    ref_freq: 1,
     img: './img/Picto3.png',
     color01: '#2434A4',
     color02: '#FFFFFF',
@@ -227,7 +227,7 @@ const aliments = [
   {
     id: 29,
     name: 'Beurre et Crème fraiche',
-    ref_freq: 1,
+    ref_freq: 2,
     img: './img/Picto29.png',
     color01: '#058DD3',
     color02: '#74C4E4',
@@ -235,7 +235,7 @@ const aliments = [
   {
     id: 30,
     name: 'Produits laitiers de chèvre et brebis',
-    ref_freq: 1,
+    ref_freq: 3,
     img: './img/Picto30.png',
     color01: '#3BA066',
     color02: '#F1F1F1',

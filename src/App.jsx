@@ -1,32 +1,48 @@
 import { useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
-import { easeIn, motion, AnimatePresence } from 'framer-motion';
+import {
+  easeIn,
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  animate,
+  useTransform,
+} from 'framer-motion';
 import './App.css';
 import aliments from './data.js';
+
+let initialScore = [
+  { id: 0, ref_freq: 1, name: 'rarement / jamais', score: 0 },
+  { id: 1, ref_freq: 2, name: 'quelques fois par mois', score: 0 },
+  { id: 2, ref_freq: 3, name: 'quelques fois par semaine', score: 0 },
+  { id: 3, ref_freq: 4, name: 'tous les jours', score: 0 },
+];
 
 function App() {
   const [cards, setCards] = useState([]);
   const [started, setStarted] = useState(false);
-  const [topCard, setTopCard] = useState([]);
   const [index, setIndex] = useState(2);
-  const [cardsToRender, setCardsToRender] = useState([]);
   const [sortedCards, setSortedCards] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const [globalSuccessScore, setGlobalSuccessScore] = useState(null);
+  const [singleSuccessScore, setSingleSuccessScore] = useState(initialScore);
 
   // Card Components
-  function Card({ card, cards, sortedCards }) {
+  function Card({ card, cards }) {
     const [isVisible, setIsVisible] = useState(true);
     const [swipingDir, setSwipingDir] = useState(null);
     const [dirColor, setDirColor] = useState(null);
 
+    // Toggle selected card visibilty and save cardss state to localStorage
     const remove = () => {
       setTimeout(() => {
         setIsVisible(false);
         setIndex((prevIndex) => prevIndex + 1);
+        saveCardsToLocal();
         console.log('cards length: ' + cards.length);
         console.log(index);
-      }, 80);
+      }, 75);
     };
 
     // Swipe gesture recognition
@@ -84,18 +100,15 @@ function App() {
             break;
         }
         setSwipingDir('Consommation : ' + freq);
-        // setTimeout(() => {
-        //   setSwipingDir(null), setDirColor(null);
-        // }, 2850);
       },
       onTouchEndOrOnMouseUp: ({ event }) => {
         setTimeout(() => {
           setSwipingDir(null);
           setDirColor(null);
-        }, 150);
+        }, 80);
       },
       trackMouse: true,
-      delta: { up: 180, down: 180, right: 80, left: 80 },
+      delta: { up: 100, down: 100, right: 60, left: 60 },
     });
 
     return (
@@ -107,6 +120,12 @@ function App() {
             bounceDamping: 23,
             timeConstant: 500,
             power: 0.1,
+          }}
+          transition={{
+            type: 'spring',
+            damping: 3,
+            stiffness: 50,
+            restDelta: 0.001,
           }}
           dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
           dragElastic={0.5}
@@ -146,6 +165,53 @@ function App() {
     );
   }
 
+  // Mesure success rate
+  const globalSuccessRate = () => {
+    const globalSuccess = cards.filter(
+      (card) => card.set_freq === card.ref_freq
+    ).length;
+    const globalSuccessRate = Math.floor((globalSuccess / cards.length) * 100);
+    setGlobalSuccessScore(globalSuccessRate);
+  };
+
+  const singleSuccessRate = (refFreq) => {
+    const filteredSingle = cards.filter((card) => {
+      if (refFreq === card.ref_freq && card.set_freq === card.ref_freq) {
+        return true;
+      }
+    });
+
+    const refFreqLength = cards.filter(
+      (card) => card.ref_freq === refFreq
+    ).length;
+
+    const scorePercentCalc = Math.floor(
+      (filteredSingle.length / refFreqLength) * 100
+    );
+
+    const singleScore = singleSuccessScore.map((score) => {
+      if (score.ref_freq === refFreq) {
+        return {
+          ...score,
+          score: (score.score = filteredSingle.length),
+          ref_score: (score.ref_score = refFreqLength),
+          score_percent: (score.score_percent = scorePercentCalc),
+        };
+      }
+      return score;
+    });
+    setSingleSuccessScore(singleScore);
+    console.log(singleSuccessScore);
+  };
+
+  useEffect(() => {
+    globalSuccessRate();
+    // Cycle through the scores and update them
+    for (let i = 1; i < 5; i++) {
+      singleSuccessRate(i);
+    }
+  }, [showResults]);
+
   // start evaluation
   const startTest = () => {
     const shuffledCards = [...aliments]
@@ -154,10 +220,9 @@ function App() {
 
     setCards(shuffledCards);
     setStarted(true);
-    // setTop();
   };
 
-  // reset evaluation
+  // reset evaluation & clear local storage
   const resetTest = () => {
     setCards([]);
     setStarted(false);
@@ -165,19 +230,25 @@ function App() {
     setShowDetails(false);
     setShowResults(false);
     setIndex(2);
+    localStorage.clear();
   };
 
-  const compareCardsAndSorted = () => {
-    const cardsLength = cards.length;
-    const sortedLength = sortedCards.length;
-    if (cardsLength == sortedLength) {
-      // console.log('true', cardsLength, sortedLength);
-      return true;
-    } else {
-      // console.log('false', cardsLength, sortedLength);
-      return false;
-    }
+  const saveCardsToLocal = () => {
+    localStorage.setItem('cards', JSON.stringify(cards));
+    localStorage.setItem('index', JSON.stringify(index));
   };
+
+  // load cards and index from localstorage on first render if it exists
+  useEffect(() => {
+    const localCards = JSON.parse(localStorage.getItem('cards'));
+    const localIndex = JSON.parse(localStorage.getItem('index'));
+    if (localCards) {
+      setCards(localCards);
+      // add +1 to index in order to retrieve previous state
+      setIndex(localIndex + 1);
+      setStarted(true);
+    }
+  }, []);
 
   return (
     <div className="App unselectable">
@@ -239,6 +310,19 @@ function App() {
         </motion.button>
       )}
 
+      {started && !showResults && index - 2 === cards.length && (
+        <motion.div
+          className="finished"
+          initial={{ x: '-100vw' }}
+          animate={{ x: 0, y: [0, -12, 0] }}
+          transition={{
+            y: { repeat: Infinity, type: 'srping', duration: 0.75 },
+          }}
+        >
+          <h3>Terminé !</h3>
+        </motion.div>
+      )}
+
       {started && !showResults && (
         <>
           <div className="progression-container">
@@ -277,226 +361,295 @@ function App() {
           animate={{ opacity: 1 }}
         >
           <h2>Résultats</h2>
-          <p>Cliquez sur les catégories pour voir plus de détails.</p>
+          <p>
+            Vous avez obtenu un score de{' '}
+            <span className="accent">
+              {cards.filter((card) => card.set_freq === card.ref_freq).length}{' '}
+              sur {cards.length}.
+            </span>
+          </p>
+          <p>
+            En adaptant vos habitudes de consommation de{' '}
+            <span className="accent">
+              {cards.length -
+                cards.filter((card) => card.set_freq === card.ref_freq)
+                  .length}{' '}
+              aliments
+            </span>{' '}
+            vous pourriez équilibrer votre pyramide alimentaire à 100%.
+          </p>
+          <p>
+            Cliquez sur les catégories ci-dessous pour explorer votre pyramide
+            alimentaire en détail.
+          </p>
           <div className="result-indiv-wrap">
             <h3>Score Global</h3>
             <div className="result-percent-bar-bg global-score">
+              <motion.div
+                className="result-freq"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ type: easeIn, duration: 0.65, delay: 0.15 }}
+              >
+                <p>{globalSuccessScore + '%'}</p>
+              </motion.div>
               <motion.div
                 initial={{ x: -120 }}
                 animate={{ x: 0 }}
                 transition={{ type: easeIn, duration: 0.65 }}
                 className="result-percent-bar-front "
-              >
-                <p>{Math.floor((12 / cards.length) * 100) + '%'}</p>
-              </motion.div>
+                style={{
+                  width: `${globalSuccessScore}%`,
+                }}
+              ></motion.div>
             </div>
           </div>
-          <div className="result-indiv-wrap">
-            <div
-              onClick={() =>
-                !showDetails ? setShowDetails(true) : setShowDetails(false)
-              }
-              className="result-percent-bar-bg"
+          <div className="pyramide-results">
+            <motion.div
+              className="result-indiv-wrap result-rarely"
+              initial={{ x: '-100vw' }}
+              animate={{ x: 0 }}
+              transition={{ type: easeIn, duration: 0.65, delay: 0.35 }}
             >
-              <motion.div
-                initial={{ x: -120 }}
-                animate={{ x: 0 }}
-                transition={{ type: easeIn, duration: 0.65, delay: 0.15 }}
-                className="result-percent-bar-front bg-rarely"
+              <div
+                onClick={() =>
+                  !showDetails ? setShowDetails(true) : setShowDetails(false)
+                }
+                className="result-percent-bar-bg"
               >
-                <h4>Rarement / Jamais</h4>
-                <p>{Math.floor((1 / cards.length) * 100) + '%'}</p>
-              </motion.div>
-            </div>
-            <div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="result-alims-container"
-            >
-              {showDetails &&
-                cards
-                  .sort((a, b) => a.ref_freq - b.ref_freq)
-                  .map(
-                    (card) =>
-                      card.set_freq === 1 && (
-                        <motion.span
-                          className={
-                            card.set_freq !== card.ref_freq
-                              ? 'result-single-alim incorrect'
-                              : 'result-single-alim correct'
-                          }
-                          key={card.id}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                        >
-                          <img
-                            draggable="false"
-                            className="mini-img-results"
-                            src={card.img}
-                            alt=""
-                          />
-                        </motion.span>
-                      )
-                  )}
-            </div>
-          </div>
-          <div className="result-indiv-wrap">
-            <h4
-              onClick={() =>
-                !showDetails ? setShowDetails(true) : setShowDetails(false)
-              }
-            >
-              Quelques fois par mois
-            </h4>
-            <div
-              onClick={() =>
-                !showDetails ? setShowDetails(true) : setShowDetails(false)
-              }
-              className="result-percent-bar-bg"
-            >
-              <motion.div
-                initial={{ x: -120 }}
-                animate={{ x: 0 }}
-                transition={{ type: easeIn, duration: 0.65, delay: 0.25 }}
-                className="result-percent-bar-front bg-monthly"
+                <motion.div
+                  className="result-freq"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ type: easeIn, duration: 0.65, delay: 0.15 }}
+                >
+                  <p>{singleSuccessScore[0].score_percent + '%'}</p>
+                  <h4>Rarement / Jamais</h4>
+                </motion.div>
+                <motion.div
+                  initial={{ x: -120 }}
+                  animate={{ x: 0 }}
+                  transition={{ type: easeIn, duration: 0.65, delay: 0.15 }}
+                  className="result-percent-bar-front bg-rarely"
+                  style={{
+                    width: `${singleSuccessScore[0].score_percent}%`,
+                  }}
+                ></motion.div>
+              </div>
+              <div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="result-alims-container"
               >
-                <p>{Math.floor((1 / cards.length) * 100) + '%'}</p>
-              </motion.div>
-            </div>
-            <div className="result-alims-container">
-              {showDetails &&
-                cards
-                  .sort((a, b) => a.ref_freq - b.ref_freq)
-                  .map(
-                    (card) =>
-                      card.set_freq === 2 && (
-                        <motion.span
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          className={
-                            card.set_freq !== card.ref_freq
-                              ? 'result-single-alim incorrect'
-                              : 'result-single-alim correct'
-                          }
-                          key={card.id}
-                        >
-                          <img
-                            draggable="false"
-                            className="mini-img-results"
-                            src={card.img}
-                            alt=""
-                          />
-                        </motion.span>
-                      )
-                  )}
-            </div>
-          </div>
-          <div className="result-indiv-wrap">
-            <h4
-              onClick={() =>
-                !showDetails ? setShowDetails(true) : setShowDetails(false)
-              }
+                {showDetails &&
+                  cards
+                    .sort((a, b) => a.ref_freq - b.ref_freq)
+                    .map(
+                      (card) =>
+                        card.set_freq === 1 && (
+                          <motion.span
+                            className={
+                              card.set_freq !== card.ref_freq
+                                ? 'result-single-alim incorrect'
+                                : 'result-single-alim correct'
+                            }
+                            key={card.id}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                          >
+                            <img
+                              draggable="false"
+                              className="mini-img-results"
+                              src={card.img}
+                              alt=""
+                            />
+                          </motion.span>
+                        )
+                    )}
+              </div>
+            </motion.div>
+            <motion.div
+              className="result-indiv-wrap result-monthly"
+              initial={{ x: '-100vw' }}
+              animate={{ x: 0 }}
+              transition={{ type: easeIn, duration: 0.65, delay: 0.25 }}
             >
-              Quelques fois par semaine
-            </h4>
-            <div
-              className="result-percent-bar-bg"
-              onClick={() =>
-                !showDetails ? setShowDetails(true) : setShowDetails(false)
-              }
-            >
-              <motion.div
-                initial={{ x: -120 }}
-                animate={{ x: 0 }}
-                transition={{ type: easeIn, duration: 0.65, delay: 0.35 }}
-                className="result-percent-bar-front bg-weekly"
+              <div
+                onClick={() =>
+                  !showDetails ? setShowDetails(true) : setShowDetails(false)
+                }
+                className="result-percent-bar-bg"
               >
-                <p>{Math.floor((1 / cards.length) * 100) + '%'}</p>
-              </motion.div>
-            </div>
-            <div className="result-alims-container">
-              {showDetails &&
-                cards
-                  .sort((a, b) => a.ref_freq - b.ref_freq)
-                  .map(
-                    (card) =>
-                      card.set_freq === 3 && (
-                        <motion.span
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          className={
-                            card.set_freq !== card.ref_freq
-                              ? 'result-single-alim incorrect'
-                              : 'result-single-alim correct'
-                          }
-                          key={card.id}
-                        >
-                          <img
-                            draggable="false"
-                            className="mini-img-results"
-                            src={card.img}
-                            alt=""
-                          />
-                        </motion.span>
-                      )
-                  )}
-            </div>
-          </div>
-          <div className="result-indiv-wrap">
-            <h4
-              onClick={() =>
-                !showDetails ? setShowDetails(true) : setShowDetails(false)
-              }
+                <motion.div
+                  className="result-freq"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ type: easeIn, duration: 0.65, delay: 0.15 }}
+                >
+                  <p>{singleSuccessScore[1].score_percent + '%'}</p>
+                  <h4>Quelques fois par mois</h4>
+                </motion.div>
+                <motion.div
+                  initial={{ x: -120 }}
+                  animate={{ x: 0 }}
+                  transition={{ type: easeIn, duration: 0.65, delay: 0.25 }}
+                  className="result-percent-bar-front bg-monthly"
+                  style={{
+                    width: `${singleSuccessScore[1].score_percent}%`,
+                  }}
+                ></motion.div>
+              </div>
+              <div className="result-alims-container">
+                {showDetails &&
+                  cards
+                    .sort((a, b) => a.ref_freq - b.ref_freq)
+                    .map(
+                      (card) =>
+                        card.set_freq === 2 && (
+                          <motion.span
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className={
+                              card.set_freq !== card.ref_freq
+                                ? 'result-single-alim incorrect'
+                                : 'result-single-alim correct'
+                            }
+                            key={card.id}
+                          >
+                            <img
+                              draggable="false"
+                              className="mini-img-results"
+                              src={card.img}
+                              alt=""
+                            />
+                          </motion.span>
+                        )
+                    )}
+              </div>
+            </motion.div>
+            <motion.div
+              className="result-indiv-wrap result-weekly"
+              initial={{ x: '-100vw' }}
+              animate={{ x: 0 }}
+              transition={{ type: easeIn, duration: 0.65, delay: 0.15 }}
             >
-              Tous les jours
-            </h4>
-            <div
-              className="result-percent-bar-bg"
-              onClick={() =>
-                !showDetails ? setShowDetails(true) : setShowDetails(false)
-              }
-            >
-              <motion.div
-                initial={{ x: -120 }}
-                animate={{ x: 0 }}
-                transition={{ type: easeIn, duration: 0.65, delay: 0.45 }}
-                className="result-percent-bar-front bg-daily"
+              <div
+                className="result-percent-bar-bg"
+                onClick={() =>
+                  !showDetails ? setShowDetails(true) : setShowDetails(false)
+                }
               >
-                <p>{Math.floor((1 / cards.length) * 100) + '%'}</p>
-              </motion.div>
-            </div>
-            <div className="result-alims-container">
-              {showDetails &&
-                cards
-                  .sort((a, b) => a.ref_freq - b.ref_freq)
-                  .map(
-                    (card) =>
-                      card.set_freq === 4 && (
-                        <motion.span
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          className={
-                            card.set_freq !== card.ref_freq
-                              ? 'result-single-alim incorrect'
-                              : 'result-single-alim correct'
-                          }
-                          key={card.id}
-                        >
-                          <img
-                            draggable="false"
-                            className="mini-img-results"
-                            src={card.img}
-                            alt=""
-                          />
-                        </motion.span>
-                      )
-                  )}
-            </div>
+                <motion.div
+                  className="result-freq"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ type: easeIn, duration: 0.65, delay: 0.15 }}
+                >
+                  <p>{singleSuccessScore[2].score_percent + '%'}</p>
+                  <h4>Quelques fois par semaine</h4>
+                </motion.div>
+                <motion.div
+                  initial={{ x: -120 }}
+                  animate={{ x: 0 }}
+                  transition={{ type: easeIn, duration: 0.65, delay: 0.35 }}
+                  className="result-percent-bar-front bg-weekly"
+                  style={{
+                    width: `${singleSuccessScore[2].score_percent}%`,
+                  }}
+                ></motion.div>
+              </div>
+              <div className="result-alims-container">
+                {showDetails &&
+                  cards
+                    .sort((a, b) => a.ref_freq - b.ref_freq)
+                    .map(
+                      (card) =>
+                        card.set_freq === 3 && (
+                          <motion.span
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className={
+                              card.set_freq !== card.ref_freq
+                                ? 'result-single-alim incorrect'
+                                : 'result-single-alim correct'
+                            }
+                            key={card.id}
+                          >
+                            <img
+                              draggable="false"
+                              className="mini-img-results"
+                              src={card.img}
+                              alt=""
+                            />
+                          </motion.span>
+                        )
+                    )}
+              </div>
+            </motion.div>
+            <motion.div
+              className="result-indiv-wrap result-daily"
+              initial={{ x: '-100vw' }}
+              animate={{ x: 0 }}
+              transition={{ type: easeIn, duration: 0.65, delay: 0.05 }}
+            >
+              <div
+                className="result-percent-bar-bg"
+                onClick={() =>
+                  !showDetails ? setShowDetails(true) : setShowDetails(false)
+                }
+              >
+                <motion.div
+                  className="result-freq"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ type: easeIn, duration: 0.65, delay: 0.15 }}
+                >
+                  <p>{singleSuccessScore[3].score_percent + '%'}</p>
+                  <h4>Tous les jours</h4>
+                </motion.div>
+                <motion.div
+                  initial={{ x: -120 }}
+                  animate={{ x: 0 }}
+                  transition={{ type: easeIn, duration: 0.65, delay: 0.45 }}
+                  className="result-percent-bar-front bg-daily"
+                  style={{
+                    width: `${singleSuccessScore[3].score_percent}%`,
+                  }}
+                ></motion.div>
+              </div>
+              <div className="result-alims-container">
+                {showDetails &&
+                  cards
+                    .sort((a, b) => a.ref_freq - b.ref_freq)
+                    .map(
+                      (card) =>
+                        card.set_freq === 4 && (
+                          <motion.span
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className={
+                              card.set_freq !== card.ref_freq
+                                ? 'result-single-alim incorrect'
+                                : 'result-single-alim correct'
+                            }
+                            key={card.id}
+                          >
+                            <img
+                              draggable="false"
+                              className="mini-img-results"
+                              src={card.img}
+                              alt=""
+                            />
+                          </motion.span>
+                        )
+                    )}
+              </div>
+            </motion.div>
           </div>
         </motion.div>
       )}
 
-      {started && (
+      {started && index - 2 === cards.length && (
         <button
           className={
             !showResults ? 'button-show-results' : 'button-show-results showing'
@@ -504,7 +657,6 @@ function App() {
           onClick={() =>
             !showResults ? setShowResults(true) : setShowResults(false)
           }
-          // onClick={compareCardsAndSorted}
         >
           {!showResults ? 'Voir les résultats' : 'Masquer les résultats'}
         </button>
