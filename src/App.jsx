@@ -351,12 +351,13 @@ function App() {
               </div>
               <div className="help-grid-element"></div>
             </div>
-          </div>
           <button
+            className="help-close"
             onClick={() => (!showHelp ? setShowHelp(true) : setShowHelp(false))}
           >
             Fermer l'aide
           </button>
+          </div>
         </motion.div>
       )}
       <motion.h1
