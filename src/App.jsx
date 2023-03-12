@@ -23,6 +23,7 @@ function App() {
   const [started, setStarted] = useState(false);
   const [index, setIndex] = useState(2);
   const [sortedCards, setSortedCards] = useState([]);
+  const [showHelp, setShowHelp] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [globalSuccessScore, setGlobalSuccessScore] = useState(null);
@@ -42,7 +43,7 @@ function App() {
         saveCardsToLocal();
         console.log('cards length: ' + cards.length);
         console.log(index);
-      }, 75);
+      }, 90);
     };
 
     // Swipe gesture recognition
@@ -86,11 +87,11 @@ function App() {
             freq = 'Quelques fois par mois';
             setDirColor('#ebad1e');
             break;
-          case 'Right':
+          case 'Up':
             freq = 'Tous les jours';
             setDirColor('#256de0');
             break;
-          case 'Up':
+          case 'Right':
             freq = 'Quelques fois par semaine';
             setDirColor('#10b22e');
             break;
@@ -123,8 +124,9 @@ function App() {
           }}
           transition={{
             type: 'spring',
-            damping: 3,
-            stiffness: 50,
+            damping: 9,
+            stiffness: 65,
+            mass: 0.1,
             restDelta: 0.001,
           }}
           dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
@@ -252,6 +254,111 @@ function App() {
 
   return (
     <div className="App unselectable">
+      <motion.button
+        onClick={() => (!showHelp ? setShowHelp(true) : setShowHelp(false))}
+        className="help-button"
+        animate={{
+          opacity: 1,
+          transition: { ease: 'easeIn', duration: 1.6 },
+        }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.85 }}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <path
+            fill="currentColor"
+            d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24V250.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1H222.6c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"
+          />
+        </svg>
+      </motion.button>
+      {showHelp && (
+        <motion.div className="help-container">
+          <div>
+            <p className="help-description">
+              Déplacer les cartes dans la direction correspondant à la fréquence
+              à laquelle vous consommez, en moyenne, l'aliment indiqué.
+            </p>
+            <div className="help-direction-grid">
+              <div className="help-grid-element"></div>
+              <div className="help-grid-element color-daily">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                  <path
+                    fill="currentColor"
+                    d="M318 177.5c3.8-8.8 2-19-4.6-26l-136-144C172.9 2.7 166.6 0 160 0s-12.9 2.7-17.4 7.5l-136 144c-6.6 7-8.4 17.2-4.6 26S14.4 192 24 192H96l0 288c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32l0-288h72c9.6 0 18.2-5.7 22-14.5z"
+                  />
+                </svg>
+                <p>Tous les jours</p>
+              </div>
+              <div className="help-grid-element"></div>
+              <div className="help-grid-element color-monthly">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path
+                    fill="currentColor"
+                    d="M177.5 414c-8.8 3.8-19 2-26-4.6l-144-136C2.7 268.9 0 262.6 0 256s2.7-12.9 7.5-17.4l144-136c7-6.6 17.2-8.4 26-4.6s14.5 12.5 14.5 22l0 72 288 0c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32l-288 0 0 72c0 9.6-5.7 18.2-14.5 22z"
+                  />
+                </svg>
+                <p>Quelques fois par mois</p>
+              </div>
+              <div className="help-grid-element">
+                <motion.div
+                  drag
+                  drag
+                  dragTransition={{
+                    bounceStiffness: 99,
+                    bounceDamping: 23,
+                    timeConstant: 500,
+                    power: 0.1,
+                  }}
+                  transition={{
+                    type: 'spring',
+                    damping: 9,
+                    stiffness: 65,
+                    mass: 0.1,
+                    restDelta: 0.001,
+                  }}
+                  dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                  dragElastic={0.5}
+                  whileTap={{ scale: 0.9 }}
+                  className="help-card unselectable"
+                >
+                  <img
+                    className="drop-shadow"
+                    draggable="false"
+                    src="./img/Picto1.png"
+                    alt=""
+                  />
+                  <h3 className="drop-shadow">Pain Blanc</h3>
+                </motion.div>
+              </div>
+              <div className="help-grid-element color-weekly">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path
+                    fill="currentColor"
+                    d="M334.5 414c8.8 3.8 19 2 26-4.6l144-136c4.8-4.5 7.5-10.8 7.5-17.4s-2.7-12.9-7.5-17.4l-144-136c-7-6.6-17.2-8.4-26-4.6s-14.5 12.5-14.5 22l0 72L32 192c-17.7 0-32 14.3-32 32l0 64c0 17.7 14.3 32 32 32l288 0 0 72c0 9.6 5.7 18.2 14.5 22z"
+                  />
+                </svg>
+                <p>Quelques fois par semaine</p>
+              </div>
+              <div className="help-grid-element"></div>
+              <div className="help-grid-element color-rarely ">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                  <path
+                    fill="currentColor"
+                    d="M2 334.5c-3.8 8.8-2 19 4.6 26l136 144c4.5 4.8 10.8 7.5 17.4 7.5s12.9-2.7 17.4-7.5l136-144c6.6-7 8.4-17.2 4.6-26s-12.5-14.5-22-14.5l-72 0 0-288c0-17.7-14.3-32-32-32L128 0C110.3 0 96 14.3 96 32l0 288-72 0c-9.6 0-18.2 5.7-22 14.5z"
+                  />
+                </svg>
+                <p>Rarement / Jamais</p>
+              </div>
+              <div className="help-grid-element"></div>
+            </div>
+          </div>
+          <button
+            onClick={() => (!showHelp ? setShowHelp(true) : setShowHelp(false))}
+          >
+            Fermer l'aide
+          </button>
+        </motion.div>
+      )}
       <motion.h1
         className={started ? 'title started drop-shadow' : 'title drop-shadow'}
         layout
@@ -267,7 +374,7 @@ function App() {
             opacity: 1,
             transition: { ease: 'easeIn', duration: 1.6 },
           }}
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.85 }}
           className="button-reset"
           onClick={resetTest}
@@ -361,27 +468,6 @@ function App() {
           animate={{ opacity: 1 }}
         >
           <h2>Résultats</h2>
-          <p>
-            Vous avez obtenu un score de{' '}
-            <span className="accent">
-              {cards.filter((card) => card.set_freq === card.ref_freq).length}{' '}
-              sur {cards.length}.
-            </span>
-          </p>
-          <p>
-            En adaptant vos habitudes de consommation de{' '}
-            <span className="accent">
-              {cards.length -
-                cards.filter((card) => card.set_freq === card.ref_freq)
-                  .length}{' '}
-              aliments
-            </span>{' '}
-            vous pourriez équilibrer votre pyramide alimentaire à 100%.
-          </p>
-          <p>
-            Cliquez sur les catégories ci-dessous pour explorer votre pyramide
-            alimentaire en détail.
-          </p>
           <div className="result-indiv-wrap">
             <h3>Score Global</h3>
             <div className="result-percent-bar-bg global-score">
@@ -404,6 +490,27 @@ function App() {
               ></motion.div>
             </div>
           </div>
+          <p>
+            Vous avez obtenu un score de{' '}
+            <span className="accent">
+              {cards.filter((card) => card.set_freq === card.ref_freq).length}{' '}
+              sur {cards.length}.
+            </span>
+          </p>
+          <p>
+            En adaptant vos habitudes de consommation de{' '}
+            <span className="accent">
+              {cards.length -
+                cards.filter((card) => card.set_freq === card.ref_freq)
+                  .length}{' '}
+              aliments
+            </span>{' '}
+            vous pourriez équilibrer votre pyramide alimentaire à 100%.
+          </p>
+          <p>
+            Cliquez sur les catégories ci-dessous pour explorer votre pyramide
+            alimentaire en détail.
+          </p>
           <div className="pyramide-results">
             <motion.div
               className="result-indiv-wrap result-rarely"
