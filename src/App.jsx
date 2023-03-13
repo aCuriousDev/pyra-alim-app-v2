@@ -273,93 +273,89 @@ function App() {
       </motion.button>
       {showHelp && (
         <motion.div className="help-container">
-          <div>
-            <p className="help-description">
-              Déplacer les cartes dans la direction correspondant à la fréquence
-              à laquelle vous consommez, en moyenne, l'aliment indiqué.
-            </p>
-            <div className="help-direction-grid">
-              <div className="help-grid-element"></div>
-              <div className="help-grid-element color-daily">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-                  <path
-                    fill="currentColor"
-                    d="M318 177.5c3.8-8.8 2-19-4.6-26l-136-144C172.9 2.7 166.6 0 160 0s-12.9 2.7-17.4 7.5l-136 144c-6.6 7-8.4 17.2-4.6 26S14.4 192 24 192H96l0 288c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32l0-288h72c9.6 0 18.2-5.7 22-14.5z"
-                  />
-                </svg>
-                <p>Tous les jours</p>
-              </div>
-              <div className="help-grid-element"></div>
-              <div className="help-grid-element color-monthly">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                  <path
-                    fill="currentColor"
-                    d="M177.5 414c-8.8 3.8-19 2-26-4.6l-144-136C2.7 268.9 0 262.6 0 256s2.7-12.9 7.5-17.4l144-136c7-6.6 17.2-8.4 26-4.6s14.5 12.5 14.5 22l0 72 288 0c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32l-288 0 0 72c0 9.6-5.7 18.2-14.5 22z"
-                  />
-                </svg>
-                <p>Quelques fois par mois</p>
-              </div>
-              <div className="help-grid-element">
-                <motion.div
-                  drag
-                  drag
-                  dragTransition={{
-                    bounceStiffness: 99,
-                    bounceDamping: 23,
-                    timeConstant: 500,
-                    power: 0.1,
-                  }}
-                  transition={{
-                    type: 'spring',
-                    damping: 9,
-                    stiffness: 65,
-                    mass: 0.1,
-                    restDelta: 0.001,
-                  }}
-                  dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-                  dragElastic={0.5}
-                  whileTap={{ scale: 0.9 }}
-                  className="help-card unselectable"
-                >
-                  <img
-                    className="drop-shadow"
-                    draggable="false"
-                    src="./img/Picto1.png"
-                    alt=""
-                  />
-                  <h3 className="drop-shadow">Pain Blanc</h3>
-                </motion.div>
-              </div>
-              <div className="help-grid-element color-weekly">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                  <path
-                    fill="currentColor"
-                    d="M334.5 414c8.8 3.8 19 2 26-4.6l144-136c4.8-4.5 7.5-10.8 7.5-17.4s-2.7-12.9-7.5-17.4l-144-136c-7-6.6-17.2-8.4-26-4.6s-14.5 12.5-14.5 22l0 72L32 192c-17.7 0-32 14.3-32 32l0 64c0 17.7 14.3 32 32 32l288 0 0 72c0 9.6 5.7 18.2 14.5 22z"
-                  />
-                </svg>
-                <p>Quelques fois par semaine</p>
-              </div>
-              <div className="help-grid-element"></div>
-              <div className="help-grid-element color-rarely ">
-                <p>Rarement / Jamais</p>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-                  <path
-                    fill="currentColor"
-                    d="M2 334.5c-3.8 8.8-2 19 4.6 26l136 144c4.5 4.8 10.8 7.5 17.4 7.5s12.9-2.7 17.4-7.5l136-144c6.6-7 8.4-17.2 4.6-26s-12.5-14.5-22-14.5l-72 0 0-288c0-17.7-14.3-32-32-32L128 0C110.3 0 96 14.3 96 32l0 288-72 0c-9.6 0-18.2 5.7-22 14.5z"
-                  />
-                </svg>
-              </div>
-              <div className="help-grid-element"></div>
+          <p className="help-description">
+            Déplacer les cartes dans la direction correspondant à la fréquence à
+            laquelle vous consommez, en moyenne, l'aliment indiqué.
+          </p>
+          <div className="help-direction-grid">
+            <div className="help-grid-element"></div>
+            <div className="help-grid-element color-daily">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                <path
+                  fill="currentColor"
+                  d="M318 177.5c3.8-8.8 2-19-4.6-26l-136-144C172.9 2.7 166.6 0 160 0s-12.9 2.7-17.4 7.5l-136 144c-6.6 7-8.4 17.2-4.6 26S14.4 192 24 192H96l0 288c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32l0-288h72c9.6 0 18.2-5.7 22-14.5z"
+                />
+              </svg>
+              <p>Tous les jours</p>
             </div>
-            <button
-              className="help-close"
-              onClick={() =>
-                !showHelp ? setShowHelp(true) : setShowHelp(false)
-              }
-            >
-              Fermer l'aide
-            </button>
+            <div className="help-grid-element"></div>
+            <div className="help-grid-element color-monthly">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path
+                  fill="currentColor"
+                  d="M177.5 414c-8.8 3.8-19 2-26-4.6l-144-136C2.7 268.9 0 262.6 0 256s2.7-12.9 7.5-17.4l144-136c7-6.6 17.2-8.4 26-4.6s14.5 12.5 14.5 22l0 72 288 0c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32l-288 0 0 72c0 9.6-5.7 18.2-14.5 22z"
+                />
+              </svg>
+              <p>Quelques fois par mois</p>
+            </div>
+            <div className="help-grid-element">
+              <motion.div
+                drag
+                drag
+                dragTransition={{
+                  bounceStiffness: 99,
+                  bounceDamping: 23,
+                  timeConstant: 500,
+                  power: 0.1,
+                }}
+                transition={{
+                  type: 'spring',
+                  damping: 9,
+                  stiffness: 65,
+                  mass: 0.1,
+                  restDelta: 0.001,
+                }}
+                dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                dragElastic={0.5}
+                whileTap={{ scale: 0.9 }}
+                className="help-card unselectable"
+              >
+                <img
+                  className="drop-shadow"
+                  draggable="false"
+                  src="./img/Picto1.png"
+                  alt=""
+                />
+                <h3 className="drop-shadow">Pain Blanc</h3>
+              </motion.div>
+            </div>
+            <div className="help-grid-element color-weekly">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path
+                  fill="currentColor"
+                  d="M334.5 414c8.8 3.8 19 2 26-4.6l144-136c4.8-4.5 7.5-10.8 7.5-17.4s-2.7-12.9-7.5-17.4l-144-136c-7-6.6-17.2-8.4-26-4.6s-14.5 12.5-14.5 22l0 72L32 192c-17.7 0-32 14.3-32 32l0 64c0 17.7 14.3 32 32 32l288 0 0 72c0 9.6 5.7 18.2 14.5 22z"
+                />
+              </svg>
+              <p>Quelques fois par semaine</p>
+            </div>
+            <div className="help-grid-element"></div>
+            <div className="help-grid-element color-rarely ">
+              <p>Rarement / Jamais</p>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                <path
+                  fill="currentColor"
+                  d="M2 334.5c-3.8 8.8-2 19 4.6 26l136 144c4.5 4.8 10.8 7.5 17.4 7.5s12.9-2.7 17.4-7.5l136-144c6.6-7 8.4-17.2 4.6-26s-12.5-14.5-22-14.5l-72 0 0-288c0-17.7-14.3-32-32-32L128 0C110.3 0 96 14.3 96 32l0 288-72 0c-9.6 0-18.2 5.7-22 14.5z"
+                />
+              </svg>
+            </div>
+            <div className="help-grid-element"></div>
           </div>
+          <button
+            className="help-close"
+            onClick={() => (!showHelp ? setShowHelp(true) : setShowHelp(false))}
+          >
+            Fermer l'aide
+          </button>
         </motion.div>
       )}
       <motion.h1
