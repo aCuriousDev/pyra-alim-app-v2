@@ -1,4 +1,4 @@
-// Temp list of aliments - to move into db afterward
+// Temp list of aliments - move into db afterward
 const aliments = [
   {
     id: 1,

@@ -121,7 +121,7 @@
   transition: all 0.125s ease-in-out;
 }
 
-.title.started {
+.started {
   justify-self: center;
   text-align: center;
   position: fixed;

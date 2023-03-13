@@ -43,11 +43,11 @@ function App() {
         saveCardsToLocal();
         console.log('cards length: ' + cards.length);
         console.log(index);
-      }, 90);
+      }, 70);
     };
 
     // Swipe gesture recognition
-    const escapeVelocity = 0.05;
+    const escapeVelocity = 0.01;
     const handlers = useSwipeable({
       onSwipedLeft: (eventData) => {
         if (eventData.velocity >= escapeVelocity) {
@@ -61,14 +61,14 @@ function App() {
       onSwipedRight: (eventData) => {
         if (eventData.velocity >= escapeVelocity) {
           // console.log('User Swiped :', eventData.dir),
-          remove(), ((card.set_freq = 4), (card.sorted = true));
+          remove(), ((card.set_freq = 3), (card.sorted = true));
           // console.log(card)
         }
       },
       onSwipedUp: (eventData) => {
         if (eventData.velocity >= escapeVelocity) {
           // console.log('User Swiped :', eventData.dir),
-          remove(), ((card.set_freq = 3), (card.sorted = true));
+          remove(), ((card.set_freq = 4), (card.sorted = true));
           // console.log(card)
         }
       },
