@@ -109,7 +109,7 @@ function App() {
         }, 80);
       },
       trackMouse: true,
-      delta: { up: 100, down: 100, right: 60, left: 60 },
+      delta: { up: 80, down: 80, right: 60, left: 60 },
     });
 
     return (
