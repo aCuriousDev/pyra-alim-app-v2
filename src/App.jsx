@@ -301,7 +301,6 @@ function App() {
             <div className="help-grid-element">
               <motion.div
                 drag
-                drag
                 dragTransition={{
                   bounceStiffness: 99,
                   bounceDamping: 23,
@@ -493,8 +492,8 @@ function App() {
             Vous avez obtenu un score de{' '}
             <span className="accent">
               {cards.filter((card) => card.set_freq === card.ref_freq).length}{' '}
-              sur {cards.length}.
-            </span>
+              sur {cards.length}
+            </span>.
           </p>
           <p>
             En adaptant vos habitudes de consommation de{' '}
