@@ -133,7 +133,7 @@
 .started {
   justify-self: center;
   text-align: center;
-  position: fixed;
+  position: absolute;
   font-size: 2rem;
   top: 1rem;
 }
@@ -219,10 +219,10 @@
   bottom: 2rem;
   justify-self: center;
   margin-top: 0.75rem;
-  background-color: rgb(238, 129, 5);
+  background-color: rgb(219, 87, 25);
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
   display: grid;
   gap: 0.3rem;
   text-align: center;
@@ -231,7 +231,9 @@
 
 .last_card-title {
   width: 22ch;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -290,7 +292,7 @@
   grid-area: card-stack;
   place-content: center center;
   text-align: center;
-  width: 20rem;
+  width: 18rem;
   /* height: 28rem; */
   aspect-ratio: 2.5 / 3.7;
   overflow: hidden;
@@ -303,8 +305,7 @@
   box-shadow: inset 0 0 24px 2px rgba(0, 0, 0, 0.075),
     inset 0 0 13px 1px rgba(0, 0, 0, 0.15), inset 0 0 3px 0 rgba(0, 0, 0, 0.35),
     0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048),
-    0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072),
-    0 41.8px 33.4px rgba(0, 0, 0, 0.086);
+    0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072);
 }
 
 .card-title {
@@ -314,6 +315,7 @@
   font-weight: 700;
   text-align: center;
   font-size: 1.2rem;
+  padding: 0 1rem;
 }
 
 /* .card > .back {
@@ -414,6 +416,7 @@
   align-items: center;
   align-self: stretch;
   margin-top: 4rem;
+  margin-bottom: 4rem;
   gap: 1rem;
   width: 100%;
   /* width: clamp(300px, 60vw, 450px); */
@@ -528,6 +531,28 @@
   font-size: 1rem;
   font-weight: 700;
   color: #f0f0f0;
+}
+
+.ref-pyramide-container {
+  display: grid;
+  place-content: center;
+  place-items: center;
+  text-align: center;
+}
+
+.ref-alims-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(56px, auto));;
+  place-items: center;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.ref-pyramid-explain {
+  max-width: 60ch;
+  padding: 2rem;
 }
 
 .correct {

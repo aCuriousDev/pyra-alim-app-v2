@@ -68,6 +68,10 @@ button {
   color: #37c057;
   font-weight: 700;
 }
+.accent-red {
+  color: #d43131;
+  font-weight: 700;
+}
 
 .highlight-text {
   text-decoration: underline;

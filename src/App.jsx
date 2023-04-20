@@ -780,6 +780,137 @@ function App() {
         </motion.div>
       )}
 
+      {showResults && (
+        <div className="ref-pyramide-container">
+          <h2>Pyramide de référence</h2>
+          <div>
+            <h3>Rarement / Jamais</h3>
+            <div className="ref-alims-container">
+              {cards
+                .sort((a, b) => a.ref_freq - b.ref_freq)
+                .map(
+                  (card) =>
+                    card.ref_freq === 1 && (
+                      <motion.span
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className={
+                          card.set_freq !== card.ref_freq
+                            ? 'result-single-alim incorrect'
+                            : 'result-single-alim correct'
+                        }
+                        key={card.id}
+                      >
+                        <img
+                          draggable="false"
+                          className="mini-img-results"
+                          src={card.img}
+                          alt=""
+                        />
+                      </motion.span>
+                    )
+                )}
+            </div>
+          </div>
+          <div>
+            <h3>Quelques fois par mois</h3>
+            <div className="ref-alims-container">
+              {cards
+                .sort((a, b) => a.ref_freq - b.ref_freq)
+                .map(
+                  (card) =>
+                    card.ref_freq === 2 && (
+                      <motion.span
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className={
+                          card.set_freq !== card.ref_freq
+                            ? 'result-single-alim incorrect'
+                            : 'result-single-alim correct'
+                        }
+                        key={card.id}
+                      >
+                        <img
+                          draggable="false"
+                          className="mini-img-results"
+                          src={card.img}
+                          alt=""
+                        />
+                      </motion.span>
+                    )
+                )}
+            </div>
+          </div>
+          <div>
+            <h3>Quelques fois par semaine</h3>
+            <div className="ref-alims-container">
+              {cards
+                .sort((a, b) => a.ref_freq - b.ref_freq)
+                .map(
+                  (card) =>
+                    card.ref_freq === 3 && (
+                      <motion.span
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className={
+                          card.set_freq !== card.ref_freq
+                            ? 'result-single-alim incorrect'
+                            : 'result-single-alim correct'
+                        }
+                        key={card.id}
+                      >
+                        <img
+                          draggable="false"
+                          className="mini-img-results"
+                          src={card.img}
+                          alt=""
+                        />
+                      </motion.span>
+                    )
+                )}
+            </div>
+          </div>
+          <div>
+            <h3>Tous les jours</h3>
+            <div className="ref-alims-container">
+              {cards
+                .sort((a, b) => a.ref_freq - b.ref_freq)
+                .map(
+                  (card) =>
+                    card.ref_freq === 4 && (
+                      <motion.span
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className={
+                          card.set_freq !== card.ref_freq
+                            ? 'result-single-alim incorrect'
+                            : 'result-single-alim correct'
+                        }
+                        key={card.id}
+                      >
+                        <img
+                          draggable="false"
+                          className="mini-img-results"
+                          src={card.img}
+                          alt=""
+                        />
+                      </motion.span>
+                    )
+                )}
+            </div>
+            <div className="ref-pyramid-explain">
+              Voici la composition idéale de la pyramide alimentaire. Chaque
+              aliment se trouve dans la catégorie qui lui est attribuée.
+              <br />
+              <span className="accent">En vert</span> sont indiqués les aliments
+              que vous consommez à la bonne fréquence et{' '}
+              <span className="accent-red">en rouge</span> les aliments dont la
+              fréquence de consommation pourraient être améliorée.
+            </div>
+          </div>
+        </div>
+      )}
+
       {started && index - 2 === cards.length && (
         <button
           className={
