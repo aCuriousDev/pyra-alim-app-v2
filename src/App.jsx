@@ -21,8 +21,8 @@ let initialScore = [
 function App() {
   const [cards, setCards] = useState([]);
   const [started, setStarted] = useState(false);
+  const [lastSwipingDir, setLastSwipingDir] = useState(null);
   const [index, setIndex] = useState(2);
-  const [sortedCards, setSortedCards] = useState([]);
   const [showHelp, setShowHelp] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
@@ -35,7 +35,7 @@ function App() {
     const [swipingDir, setSwipingDir] = useState(null);
     const [dirColor, setDirColor] = useState(null);
 
-    // Toggle selected card visibilty and save cardss state to localStorage
+    // Toggle selected card visibilty and save cards state to localStorage
     const remove = () => {
       setTimeout(() => {
         setIsVisible(false);
@@ -51,32 +51,22 @@ function App() {
     const handlers = useSwipeable({
       onSwipedLeft: (eventData) => {
         if (eventData.velocity >= escapeVelocity) {
-          // console.log('User Swiped :', eventData.dir),
           remove(), ((card.set_freq = 2), (card.sorted = true));
-          // setSortedCards([...sortedCards, card]),
-          // console.log(sortedCards),
-          //console.log(card)
         }
       },
       onSwipedRight: (eventData) => {
         if (eventData.velocity >= escapeVelocity) {
-          // console.log('User Swiped :', eventData.dir),
           remove(), ((card.set_freq = 3), (card.sorted = true));
-          // console.log(card)
         }
       },
       onSwipedUp: (eventData) => {
         if (eventData.velocity >= escapeVelocity) {
-          // console.log('User Swiped :', eventData.dir),
           remove(), ((card.set_freq = 4), (card.sorted = true));
-          // console.log(card)
         }
       },
       onSwipedDown: (eventData) => {
         if (eventData.velocity >= escapeVelocity) {
-          // console.log('User Swiped :', eventData.dir),
           remove(), ((card.set_freq = 1), (card.sorted = true));
-          // console.log(card)
         }
       },
       onSwiping: (eventData) => {
@@ -104,6 +94,7 @@ function App() {
       },
       onTouchEndOrOnMouseUp: ({ event }) => {
         setTimeout(() => {
+          setLastSwipingDir(swipingDir);
           setSwipingDir(null);
           setDirColor(null);
         }, 80);
@@ -214,7 +205,7 @@ function App() {
     }
   }, [showResults]);
 
-  // start evaluation
+  // Start evaluation
   const startTest = () => {
     const shuffledCards = [...aliments]
       .sort(() => Math.random() - 0.5)
@@ -224,11 +215,28 @@ function App() {
     setStarted(true);
   };
 
-  // reset evaluation & clear local storage
+  // Cancel card
+  const cancelCard = () => {
+    if (index > 2) {
+      const lastCardIndex = index - 3;
+      console.log(lastCardIndex);
+      const lastCard = cards.map((card, id) => {
+        if (id === lastCardIndex) {
+          console.log(card);
+          return { ...card, set_freq: 0, sorted: false };
+        }
+        return card;
+      });
+      console.log(lastCard);
+      setCards(lastCard);
+      setIndex((prevIndex) => prevIndex - 1);
+    }
+  };
+
+  // Reset evaluation & clear local storage
   const resetTest = () => {
     setCards([]);
     setStarted(false);
-    setSortedCards([]);
     setShowDetails(false);
     setShowResults(false);
     setIndex(2);
@@ -237,7 +245,7 @@ function App() {
 
   const saveCardsToLocal = () => {
     localStorage.setItem('cards', JSON.stringify(cards));
-    localStorage.setItem('index', JSON.stringify(index));
+    localStorage.setItem('index', JSON.stringify(index + 1));
   };
 
   // load cards and index from localstorage on first render if it exists
@@ -246,14 +254,14 @@ function App() {
     const localIndex = JSON.parse(localStorage.getItem('index'));
     if (localCards) {
       setCards(localCards);
-      // add +1 to index in order to retrieve previous state
-      setIndex(localIndex + 1);
+      setIndex(localIndex);
       setStarted(true);
     }
   }, []);
 
   return (
     <div className="App unselectable">
+      {/* Help Module start */}
       <motion.button
         onClick={() => (!showHelp ? setShowHelp(true) : setShowHelp(false))}
         className="help-button"
@@ -357,6 +365,8 @@ function App() {
           </button>
         </motion.div>
       )}
+      {/* Help Module end */}
+
       <motion.h1
         className={started ? 'title started drop-shadow' : 'title drop-shadow'}
         layout
@@ -366,6 +376,7 @@ function App() {
       >
         Pyra'Alim
       </motion.h1>
+
       {started && (
         <motion.button
           animate={{
@@ -391,6 +402,8 @@ function App() {
           </motion.svg>
         </motion.button>
       )}
+
+      {/* Starting screen start */}
       {!started && (
         <motion.p
           initial={{ opacity: 0 }}
@@ -414,6 +427,7 @@ function App() {
           Commencer le test
         </motion.button>
       )}
+      {/* Starting screen end */}
 
       {started && !showResults && index - 2 === cards.length && (
         <motion.div
@@ -446,16 +460,27 @@ function App() {
               .map(
                 (card) =>
                   card.set_freq === 0 && (
-                    <Card
-                      key={card.id}
-                      card={card}
-                      cards={cards}
-                      sortedCards={sortedCards}
-                    />
+                    <Card key={card.id} card={card} cards={cards} />
                   )
               )}
           </div>
         </>
+      )}
+
+      {started && index > 2 && !showResults && (
+        <button className="button-cancel" onClick={cancelCard}>
+          Annuler la dernière carte :
+          <div className="last_card-title">
+            <img
+              draggable="false"
+              className="mini-img-results"
+              src={cards[index - 3].img}
+              alt=""
+            />
+            {cards[index - 3].name}
+          </div>
+          <div className="last_card-freq">{lastSwipingDir}</div>
+        </button>
       )}
 
       {showResults && (
@@ -493,7 +518,8 @@ function App() {
             <span className="accent">
               {cards.filter((card) => card.set_freq === card.ref_freq).length}{' '}
               sur {cards.length}
-            </span>.
+            </span>
+            .
           </p>
           <p>
             En adaptant vos habitudes de consommation de{' '}
