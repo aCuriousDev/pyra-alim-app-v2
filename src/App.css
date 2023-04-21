@@ -126,6 +126,7 @@
   display: block;
   font-size: clamp(2rem, 3rem, 4.5rem);
   justify-self: center;
+
   text-align: center;
   transition: all 0.125s ease-in-out;
 }
@@ -133,6 +134,7 @@
 .started {
   justify-self: center;
   text-align: center;
+  place-self: center;
   position: absolute;
   font-size: 2rem;
   top: 1rem;
@@ -227,6 +229,7 @@
   gap: 0.3rem;
   text-align: center;
   place-items: center;
+  place-self: center;
 }
 
 .last_card-title {
@@ -535,6 +538,7 @@
 
 .ref-pyramide-container {
   display: grid;
+  place-self: center;
   place-content: center;
   place-items: center;
   text-align: center;
@@ -543,16 +547,18 @@
 .ref-alims-container {
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(56px, auto));;
+  grid-template-columns: repeat(auto-fit, minmax(56px, auto));
   place-items: center;
   align-items: center;
   justify-content: center;
+  place-self: center;
   text-align: center;
 }
 
 .ref-pyramid-explain {
   max-width: 60ch;
   padding: 2rem;
+  place-self: center;
 }
 
 .correct {
