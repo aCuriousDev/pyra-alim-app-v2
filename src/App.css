@@ -126,7 +126,6 @@
   display: block;
   font-size: clamp(2rem, 3rem, 4.5rem);
   justify-self: center;
-
   text-align: center;
   transition: all 0.125s ease-in-out;
 }
@@ -134,6 +133,7 @@
 .started {
   justify-self: center;
   text-align: center;
+  align-self: center;
   place-self: center;
   position: absolute;
   font-size: 2rem;

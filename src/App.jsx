@@ -535,7 +535,8 @@ function App() {
             Cliquez sur les catégories ci-dessous pour explorer votre pyramide
             alimentaire en détail.
           </p>
-          <div className="pyramide-results">
+          <div className="pyramide-results"
+          style={ showDetails ? { gridGap: '1rem'}: { gridGap: '.3rem'}}>
             <motion.div
               className="result-indiv-wrap result-rarely"
               initial={{ x: '-100vw' }}
