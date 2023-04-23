@@ -543,6 +543,7 @@
   place-content: center;
   place-items: center;
   text-align: center;
+  grid-gap: .8rem;
 }
 
 .ref-alims-container {
