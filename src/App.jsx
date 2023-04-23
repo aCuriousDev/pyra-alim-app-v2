@@ -783,7 +783,16 @@ function App() {
 
       {showResults && (
         <div className="ref-pyramide-container">
+          <div className="ref-pyramid-explain">
           <h2>Pyramide de référence</h2>
+              Voici la composition idéale de la pyramide alimentaire. Chaque
+              aliment se trouve dans la catégorie qui lui est attribuée.
+              <br />
+              <span className="accent">En vert</span> sont indiqués les aliments
+              que vous consommez à la bonne fréquence et{' '}
+              <span className="accent-red">en rouge</span> les aliments dont la
+              fréquence de consommation pourraient être améliorée.
+            </div>
           <div>
             <h3>Rarement / Jamais</h3>
             <div className="ref-alims-container">
@@ -898,15 +907,6 @@ function App() {
                       </motion.span>
                     )
                 )}
-            </div>
-            <div className="ref-pyramid-explain">
-              Voici la composition idéale de la pyramide alimentaire. Chaque
-              aliment se trouve dans la catégorie qui lui est attribuée.
-              <br />
-              <span className="accent">En vert</span> sont indiqués les aliments
-              que vous consommez à la bonne fréquence et{' '}
-              <span className="accent-red">en rouge</span> les aliments dont la
-              fréquence de consommation pourraient être améliorée.
             </div>
           </div>
         </div>
