@@ -405,15 +405,17 @@ function App() {
 
       {/* Starting screen start */}
       {!started && (
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="subtitle"
-        >
-          L'outil simple pour auto-évaluer la qualité de mon alimentation et
-          équilibrer ma pyramide alimentaire.
-        </motion.p>
+        <>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="subtitle"
+          >
+            L'outil simple pour auto-évaluer la qualité de mon alimentation et
+            équilibrer ma pyramide alimentaire.
+          </motion.p>
+        </>
       )}
       {!started && (
         <motion.button
@@ -535,8 +537,10 @@ function App() {
             Cliquez sur les catégories ci-dessous pour explorer votre pyramide
             alimentaire en détail.
           </p>
-          <div className="pyramide-results"
-          style={ showDetails ? { gridGap: '1rem'}: { gridGap: '.3rem'}}>
+          <div
+            className="pyramide-results"
+            style={showDetails ? { gridGap: '1rem' } : { gridGap: '.3rem' }}
+          >
             <motion.div
               className="result-indiv-wrap result-rarely"
               initial={{ x: '-100vw' }}
@@ -784,15 +788,15 @@ function App() {
       {showResults && (
         <div className="ref-pyramide-container">
           <div className="ref-pyramid-explain">
-          <h2>Pyramide de référence</h2>
-              Voici la composition idéale de la pyramide alimentaire. Chaque
-              aliment se trouve dans la catégorie qui lui est attribuée.
-              <br />
-              <span className="accent">En vert</span> sont indiqués les aliments
-              que vous consommez à la bonne fréquence et{' '}
-              <span className="accent-red">en rouge</span> les aliments dont la
-              fréquence de consommation pourraient être améliorée.
-            </div>
+            <h2>Pyramide de référence</h2>
+            Voici la composition idéale de la pyramide alimentaire. Chaque
+            aliment se trouve dans la catégorie qui lui est attribuée.
+            <br />
+            <span className="accent">En vert</span> sont indiqués les aliments
+            que vous consommez à la bonne fréquence et{' '}
+            <span className="accent-red">en rouge</span> les aliments dont la
+            fréquence de consommation pourraient être améliorée.
+          </div>
           <div>
             <h3>Rarement / Jamais</h3>
             <div className="ref-alims-container">
