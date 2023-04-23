@@ -504,6 +504,7 @@
 .mini-img-results {
   height: 24px;
   width: auto;
+  align-self: center;
   place-self: center;
 }
 
@@ -543,7 +544,7 @@
   place-content: center;
   place-items: center;
   text-align: center;
-  grid-gap: .8rem;
+  grid-gap: 0.8rem;
 }
 
 .ref-alims-container {
