@@ -230,6 +230,7 @@
   text-align: center;
   place-items: center;
   place-self: center;
+  align-self: center;
 }
 
 .last_card-title {
