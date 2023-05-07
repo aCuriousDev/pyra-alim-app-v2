@@ -5,13 +5,12 @@
   /* dynamic unit for compatible browsers */
   min-height: 100dvh;
   display: grid;
-  grid-template-rows: auto minmax(70%, auto) auto;
+  grid-template-rows: min-content minmax(70%, auto) auto;
   overflow: hidden;
 }
 
 .header {
   display: flex;
-  width: 100vw;
   justify-content: space-between;
   align-items: center;
   outline: 3px dashed red;
