@@ -2,23 +2,41 @@
   background: rgb(2, 1, 24);
   background: linear-gradient(90deg, rgba(2, 1, 24, 1) 0%, rgb(7, 7, 27) 100%);
   min-height: 100vh;
+  /* dynamic unit for compatible browsers */
   min-height: 100dvh;
   display: grid;
-  place-content: center;
+  grid-template-rows: auto minmax(70%, auto) auto;
   overflow: hidden;
 }
 
-.help-button {
-  top: 1.4rem;
-  left: 1rem;
+.header {
+  display: flex;
+  width: 100vw;
+  justify-content: space-between;
+  align-items: center;
+  outline: 3px dashed red;
+}
+
+.content {
   display: grid;
-  place-self: start end;
-  position: fixed;
+  place-content: start center;
+  outline: 3px dashed yellow;
+}
+
+.footer {
+  display: grid;
+  place-content: center;
+  outline: 3px dashed cyan;
+}
+
+/* --> Help style start */
+.help-button {
+  display: grid;
+  place-self: center start;
   padding: 0;
   margin: 0;
-  height: 2.3rem;
+  height: 2.3em;
   aspect-ratio: 1/1;
-  z-index: 1;
   background-color: #4f97c7;
 }
 
@@ -33,7 +51,6 @@
 .help-container {
   position: fixed;
   display: grid;
-  /* place-content: center; */
   background-color: rgba(0, 0, 0, 0.8);
   min-height: 100vh;
   min-height: 100dvh;
@@ -42,10 +59,6 @@
   padding: 1rem;
   backdrop-filter: blur(5px);
 }
-
-/* .help-container > div {
-  display: grid;
-} */
 
 .help-container p {
   text-align: center;
@@ -61,7 +74,6 @@
 }
 
 .help-grid-element {
-  /* border: solid 1px rgb(192, 88, 88); */
   display: grid;
   place-content: center;
   place-self: center;
@@ -91,10 +103,6 @@
   overflow: hidden;
   border-radius: 23px;
   border: solid 1px hsla(0, 0%, 100%, 0.212);
-  /* box-shadow: inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.075),
-    0 0 0 1px hsla(0, 0%, 0%, 0.05),
-    0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
-    0 0.9px 1.5px hsla(0, 0%, 0%, 0.045), 0 3.5px 6px hsla(0, 0%, 0%, 0.09); */
   box-shadow: inset 0 0 24px 2px rgba(0, 0, 0, 0.075),
     inset 0 0 13px 1px rgba(0, 0, 0, 0.15), inset 0 0 3px 0 rgba(0, 0, 0, 0.35),
     0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048),
@@ -124,6 +132,8 @@
   left: 2rem;
   bottom: 2rem;
 }
+/* <-- Help style end */
+
 .title {
   display: block;
   font-size: clamp(2rem, 3rem, 4.5rem);
@@ -165,7 +175,6 @@
   font-size: 100%;
   height: 44px;
   line-height: 1.15;
-  /* margin: 2.6rem 0 0; */
   outline: none;
   overflow: hidden;
   padding: 0 25px;
@@ -191,11 +200,9 @@
 }
 
 .button-reset {
-  top: 1.4rem;
-  right: 1rem;
   display: grid;
-  place-self: start end;
-  position: fixed;
+  place-self: center end;
+  /* position: fixed; */
   padding: 0;
   margin: 0;
   height: 2.3rem;
@@ -280,6 +287,7 @@
   place-self: center;
 }
 
+/* --> cards styling start */
 .cards-container {
   display: grid;
   place-self: start center;
@@ -360,6 +368,8 @@
   text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5);
 }
 
+/* <-- cards styling end */
+
 .btn-rate-container {
   position: fixed;
   display: flex;
@@ -418,15 +428,16 @@
 }
 
 .results {
-  min-height: 400px;
+  
+  align-self: start;
+  place-self: start start;
   display: grid;
   align-items: center;
-  align-self: stretch;
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+  /* align-self: stretch; */
+  /* margin-top: 4rem;
+  margin-bottom: 4rem; */
   gap: 1rem;
   width: 100%;
-  /* width: clamp(300px, 60vw, 450px); */
 }
 
 .result-indiv-wrap {
