@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@100;300;400;500;600;700;800;900&family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@100;300;400;500;600;700;800;900&family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap");
 
 /* Reset */
 *,
@@ -13,50 +13,18 @@
 /* Basic styling */
 html,
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-variant-numeric: lining-nums;
-  font-feature-settings: 'lnum';
+  font-feature-settings: "lnum";
   font-size: 16px;
-  color: #e9e9e9;
+  color: #161616;
 }
 
 h1,
 h2,
 h3 {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
-}
-
-svg {
-  height: 5rem;
-  width: auto;
-}
-
-button {
-  appearance: button;
-  backface-visibility: hidden;
-  background-color: #e7e7e7;
-  border-radius: 6px;
-  border-width: 0;
-  box-shadow: rgba(50, 93, 67, 0.1) 0 0 0 1px inset,
-    rgba(50, 93, 63, 0.1) 0 2px 5px 0, rgba(0, 0, 0, 0.07) 0 1px 1px 0;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  font-size: 100%;
-  min-height: 44px;
-  line-height: 1.15;
-  margin: 0;
-  outline: none;
-  overflow: hidden;
-  padding: 0 25px;
-  /* position: relative; */
-  text-align: center;
-  text-transform: none;
-  transform: translateZ(0);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
 }
 
 /* Utility */
