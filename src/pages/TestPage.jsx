@@ -1,10 +1,16 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
+import Header from "../components/Header";
 
 const TestPage = () => {
   return (
     <div>
-      <h2>Page de test</h2>
-      {/* Add your test components here */}
+      <Header />
+      <h1>Page de test</h1>
+      <p>Vous n'avez pas encore rempli le questionnaire</p>
+      <Link to="/survey">
+        <button>Accéder au questionnaire</button>
+      </Link>
     </div>
   );
 };

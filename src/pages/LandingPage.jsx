@@ -2,11 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ContactForm from "../components/ContactForm";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const LandingPage = () => {
   return (
     <div>
-      <h1>PyrAlim</h1>
+      <Header />
       <p>
         Transformez votre alimentation pour une vie plus saine et épanouissante
         !
@@ -32,10 +33,9 @@ const LandingPage = () => {
         <h2>Que fait PyrAlim ?</h2>
         <p>
           PyrAlim est une application qui vise à vous aider à prendre le
-          contrôle de votre alimentation. Elle vous permet de suivre votre
-          consommation alimentaire, d'obtenir des recommandations personnalisées
-          et de vous sensibiliser à l'importance de faire des choix alimentaires
-          équilibrés. PyrAlim rend la nutrition amusante et innovante en vous
+          contrôle de votre alimentation. Elle vous permet de faire un bilan de
+          vos modes de consommation et vous sensibilise à une alimentation plus
+          équilibrée. PyrAlim rend la nutrition amusante et innovante en vous
           encourageant à être conscient de ce que vous mangez et à prendre des
           décisions responsables pour votre santé.
         </p>
@@ -58,7 +58,7 @@ const LandingPage = () => {
           .
         </p>
       </section>
-        
+
       <ContactForm />
       <Footer />
     </div>
