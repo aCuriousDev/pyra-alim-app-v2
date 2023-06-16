@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -10,6 +11,7 @@ const Footer = () => {
       <p>
         <a href="/gdpr">GDPR Compliance</a>
       </p>
+      <Link to="/admin">Go to Admin</Link>
     </footer>
   );
 };

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "firebase": "^9.22.2",
     "framer-motion": "^9.1.7",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
