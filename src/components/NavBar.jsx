@@ -121,6 +121,7 @@ const NavBar = (props) => {
             Accueil
           </LinkItem>
           <LinkItem to="start">Commencer</LinkItem>
+          <LinkItem to="https://pyra-alim.netlify.app/">App Demo</LinkItem>
           <LinkItem to="admin">Admin</LinkItem>
         </Stack>
 
@@ -140,6 +141,9 @@ const NavBar = (props) => {
                 </MenuItem>
                 <MenuItem as={MenuLink} to="start">
                   Commencer
+                </MenuItem>
+                <MenuItem as={MenuLink} to="https://pyra-alim.netlify.app/">
+                  App Demo
                 </MenuItem>
                 <MenuItem as={MenuLink} to="admin">
                   Admin

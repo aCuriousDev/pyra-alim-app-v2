@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ResponseSummary from "../components/ResponseSummary";
 import Header from "../components/NavBar";
+import { Button, Container, Heading } from "@chakra-ui/react";
 
 const Survey = () => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const Survey = () => {
     "Professions intermédiaires",
     "Employés / Employées",
     "Ouvriers / Ouvrières",
+    "Étudiants",
     "Autres",
   ];
 
@@ -108,12 +110,12 @@ const Survey = () => {
   };
 
   return (
-    <div>
-      <h2>Questionnaire</h2>
+    <Container>
+      <Heading>Questionnaire</Heading>
 
       {isBlockVisible("a") && (
         <>
-          <h3>Bloc A: Identité</h3>
+          <Heading as="h3">Bloc A: Identité</Heading>
           <form onSubmit={handleBlockSubmit}>
             <label>Nom / Prénom:</label>
             <input
@@ -181,14 +183,14 @@ const Survey = () => {
               </select>
             </label>
 
-            <button type="submit">Valider</button>
+            <Button type="submit">Valider</Button>
           </form>
         </>
       )}
 
       {isBlockVisible("b") && (
         <>
-          <h3>Bloc B: Ma santé et moi</h3>
+          <Heading as="h3">Bloc B: Ma santé et moi</Heading>
           <form onSubmit={handleBlockSubmit}>
             <label>Ma santé est une priorité, une valeur dans ma vie:</label>
             <input
@@ -223,26 +225,26 @@ const Survey = () => {
               required
             />
 
-            <button type="submit">Valider</button>
+            <Button type="submit">Valider</Button>
           </form>
         </>
       )}
 
       {isBlockVisible("c") && (
         <>
-          <h3>Bloc C: Mon activité physique et moi</h3>
+          <Heading as="h3">Bloc C: Mon activité physique et moi</Heading>
           <form onSubmit={handleBlockSubmit}>
             <label>Avez-vous une Activité professionnelle Sédentaire ?</label>
-            <select
+            <input
+              type="range"
               name="sedentaryWork"
+              min="1"
+              max="20"
               value={formData.sedentaryWork}
               onChange={handleInputChange}
               required
-            >
-              <option value="">Sélectionner</option>
-              <option value="oui">Oui</option>
-              <option value="non">Non</option>
-            </select>
+            />
+
 
             <label>
               Sur une semaine, dans le cadre vos activités professionnelles et
@@ -252,16 +254,15 @@ const Survey = () => {
               en compte les activités dont la durée est au moins de 10 minutes
               d’affilée)
             </label>
-            <select
+            <input
+              type="range"
               name="physicalActivity"
+              min="1"
+              max="20"
               value={formData.physicalActivity}
               onChange={handleInputChange}
               required
-            >
-              <option value="">Sélectionner</option>
-              <option value="oui">Oui</option>
-              <option value="non">Non</option>
-            </select>
+            />
 
             <label>Quel est votre Taille en cm ?</label>
             <input
@@ -281,14 +282,14 @@ const Survey = () => {
               required
             />
 
-            <button type="submit">Valider</button>
+            <Button type="submit">Valider</Button>
           </form>
         </>
       )}
 
       {isBlockVisible("d") && (
         <>
-          <h3>Bloc D: Mon alimentation et moi</h3>
+          <Heading as="h3">Bloc D: Mon alimentation et moi</Heading>
           <form onSubmit={handleBlockSubmit}>
             <label>
               Est-ce que vous considérez que l’alimentation est un facteur
@@ -326,13 +327,13 @@ const Survey = () => {
               type="range"
               name="dailyMeals"
               min="1"
-              max="20"
+              max="10"
               value={formData.dailyMeals}
               onChange={handleInputChange}
               required
             />
 
-            <button type="submit">Valider</button>
+            <Button type="submit">Valider</Button>
           </form>
         </>
       )}
@@ -345,7 +346,7 @@ const Survey = () => {
           currentBlock={currentBlock}
         />
       )}
-    </div>
+    </Container>
   );
 };
 

@@ -15,9 +15,9 @@ const Logo = () => {
   return (
     <LinkBox>
       <LinkOverlay as={RouterLink} to="/">
-        <Heading as="h1" size="lg" >
+        <Heading as="h1" size="lg">
           PYR
-          <Image src="/logo/logo.png" boxSize={8} display={"inline-block"} />
+          <Image src="/logo/logo.png" boxSize={7} display={"inline-block"} />
           LIM
         </Heading>
       </LinkOverlay>

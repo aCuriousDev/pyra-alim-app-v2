@@ -9,7 +9,7 @@ const MainLayout = () => {
   return (
     <Box pb={8}>
       <Header />
-      <Container maxW="container.md" pt={20}>
+      <Container maxW="container.sm" pt={20}>
         <Outlet />
       </Container>
       <Footer />
