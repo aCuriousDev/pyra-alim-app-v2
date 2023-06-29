@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Header from "../components/Header";
+import Header from "../components/NavBar";
 
 const TestPage = () => {
   return (
     <div>
-      <Header />
       <h1>Page de test</h1>
       <p>Vous n'avez pas encore rempli le questionnaire</p>
       <Link to="/survey">

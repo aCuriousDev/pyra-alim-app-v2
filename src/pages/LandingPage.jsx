@@ -1,20 +1,36 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import ContactForm from "../components/ContactForm";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import {
+  Container,
+  Heading,
+  Box,
+  useColorModeValue,
+  Tooltip,
+  Avatar,
+  Text,
+  Button,
+  Center,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  StatArrow,
+  StatGroup,
+  Icon,
+  Stack,
+} from "@chakra-ui/react";
 
 const LandingPage = () => {
   return (
-    <div>
-      <Header />
-      <p>
-        Transformez votre alimentation pour une vie plus saine et épanouissante
-        !
-      </p>
-      <Link to="/test">
-        <button>Commencer le test</button>
-      </Link>
+    <Container>
+      <Heading>
+        Transformez votre alimentation pour une vie plus saine et épanouie !
+      </Heading>
+      <Center mt={5}>
+        <Button as={Link} to="start">
+          Commencer
+        </Button>
+      </Center>
 
       <section>
         <h2>Pourquoi votre alimentation compte-t-elle ?</h2>
@@ -60,8 +76,7 @@ const LandingPage = () => {
       </section>
 
       <ContactForm />
-      <Footer />
-    </div>
+    </Container>
   );
 };
 

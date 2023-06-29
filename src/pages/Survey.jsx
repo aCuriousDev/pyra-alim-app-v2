@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ResponseSummary from "../components/ResponseSummary";
-import Header from "../components/Header";
+import Header from "../components/NavBar";
 
 const Survey = () => {
   const navigate = useNavigate();
@@ -109,7 +109,6 @@ const Survey = () => {
 
   return (
     <div>
-      <Header />
       <h2>Questionnaire</h2>
 
       {isBlockVisible("a") && (
