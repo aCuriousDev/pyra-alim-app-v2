@@ -10,6 +10,7 @@ import {
   MenuItem,
   MenuList,
   MenuButton,
+  Button,
   IconButton,
   useColorModeValue,
   forwardRef,
@@ -17,6 +18,7 @@ import {
 import { HamburgerIcon } from "@chakra-ui/icons";
 import ThemeButton from "./theme-button";
 import Logo from "./Logo";
+import { useLogout } from "../hooks/useLogout";
 
 const LinkItem = ({ children, to, ...props }) => {
   const inactiveColor = useColorModeValue("gray.800", "whiteAlpha.900");
@@ -58,34 +60,9 @@ const MenuLink = forwardRef((props, to) => (
   />
 ));
 
-// const NavBar = () => {
-//   const location = useLocation();
-
-//   const showLink = location.pathname !== "/";
-
-//   return (
-//     <header>
-//       <h1>
-//         PYR
-//         <img
-//           src={logo}
-//           alt="PyrAlim Logo"
-//           style={{
-//             height: "30px",
-//             objectFit: "contain",
-//             display: "inline-block",
-//           }}
-//         />
-//         LIM
-//       </h1>
-
-//       {showLink && <Link to="/">Retour à l'accueil</Link>}
-//     </header>
-//   );
-// };
-
 const NavBar = (props) => {
   const { path } = props;
+  const { logout } = useLogout();
 
   return (
     <Box
@@ -122,7 +99,9 @@ const NavBar = (props) => {
           </LinkItem>
           <LinkItem to="start">Commencer</LinkItem>
           <LinkItem to="https://pyra-alim.netlify.app/">App Demo</LinkItem>
-          <LinkItem to="admin">Admin</LinkItem>
+          <LinkItem to="signup">Signup</LinkItem>
+          <LinkItem to="account">Account</LinkItem>
+          <LinkItem onClick={logout}>Logout</LinkItem>
         </Stack>
 
         <Box flex={1} align="right">
@@ -145,9 +124,13 @@ const NavBar = (props) => {
                 <MenuItem as={MenuLink} to="https://pyra-alim.netlify.app/">
                   App Demo
                 </MenuItem>
-                <MenuItem as={MenuLink} to="admin">
-                  Admin
+                <MenuItem as={MenuLink} to="signup">
+                  Signup
                 </MenuItem>
+                <MenuItem as={MenuLink} to="account">
+                  Account
+                </MenuItem>
+                <Button onClick={logout}>Logout</Button>
               </MenuList>
             </Menu>
           </Box>
